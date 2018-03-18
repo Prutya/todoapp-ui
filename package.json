@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "scripts": {
     "start:dev": "webpack-dev-server --inline --hot --config webpack.dev.js",
-    "build:prod": "webpack --config webpack.prod.js --mode production",
-    "start:prod": "node server.js"
+    "build:prod": "webpack --config webpack.prod.js --mode production"
   },
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
+    "babel-polyfill": "^6.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
