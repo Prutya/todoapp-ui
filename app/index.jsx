@@ -6,6 +6,8 @@ import { createStore } from 'redux'
 import todoApp from './reducers'
 import App from './components/App'
 
+import styles from './scss/application.scss'
+
 let store = createStore(todoApp)
 
 render(
