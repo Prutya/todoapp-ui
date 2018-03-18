@@ -1,10 +1,16 @@
+import 'babel-polyfill'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import todoApp from './reducers'
+import App from './components/App'
 
-import AddTodoForm from './components/AddTodoForm.jsx'
-import styles from './scss/application.scss'
+let store = createStore(todoApp)
 
-ReactDOM.render(
-  <AddTodoForm onSubmit={ (text) => { console.log(`Submitted '${text}'`) } }/>,
+render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
   document.getElementById('root')
 )
