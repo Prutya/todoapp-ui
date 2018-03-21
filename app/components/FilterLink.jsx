@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { Link } from './Link'
 
-import { visibilityFilterConstants } from '../constants'
+import { visibilityFilterActions } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -15,10 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      dispatch({
-        type: visibilityFilterConstants.SET,
-        filter: ownProps.filter
-      })
+      dispatch(visibilityFilterActions.set(ownProps.filter))
     }
   }
 }

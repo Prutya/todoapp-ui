@@ -9,6 +9,14 @@ const create = (text) => {
   }
 }
 
+const toggle = (id) => {
+  return {
+    type: todosConstants.TOGGLE,
+    id
+  }
+}
+
 export const todosActions = {
-  create
+  create,
+  toggle
 }

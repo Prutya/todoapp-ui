@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 
 import { TodoList } from './TodoList'
-import { todosConstants, visibilityFilterConstants } from '../constants'
+import { visibilityFilterConstants } from '../constants'
+import { todosActions } from '../actions'
 
 const getVisibleTodos = (
   todos,
@@ -31,10 +32,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onTodoClick: (id) => {
-      dispatch({
-        type: todosConstants.TOGGLE,
-        id
-      })
+      dispatch(todosActions.toggle(id))
     }
   }
 }
