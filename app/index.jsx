@@ -169,20 +169,20 @@ AddTodo.contextTypes = {
   store: PropTypes.object
 }
 
-const Footer = ({ store }) => {
+const Footer = () => {
   return (
     <p>
       Show:
       {' '}
-      <FilterLink store={store} filter={visibilityFilterConstants.SHOW_ALL}>
+      <FilterLink filter={visibilityFilterConstants.SHOW_ALL}>
         All
       </FilterLink>
       {' '}
-      <FilterLink store={store} filter={visibilityFilterConstants.SHOW_ACTIVE}>
+      <FilterLink filter={visibilityFilterConstants.SHOW_ACTIVE}>
         Active
       </FilterLink>
       {' '}
-      <FilterLink store={store} filter={visibilityFilterConstants.SHOW_COMPLETED}>
+      <FilterLink filter={visibilityFilterConstants.SHOW_COMPLETED}>
         Completed
       </FilterLink>
     </p>
@@ -190,12 +190,12 @@ const Footer = ({ store }) => {
 }
 
 let nextTodoId = 0
-const TodoApp = ({ store }) => {
+const TodoApp = () => {
   return (
     <div>
-      <AddTodo store={store} />
-      <VisibleTodoList store={store} />
-      <Footer store={store} />
+      <AddTodo />
+      <VisibleTodoList />
+      <Footer />
     </div>
   )
 }
