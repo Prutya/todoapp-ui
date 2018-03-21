@@ -2,9 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { todosConstants } from '../constants'
-
-let nextTodoId = 0
+import { todosActions }   from '../actions'
 
 export let AddTodo = ({ dispatch }) => {
   let input
@@ -13,11 +11,7 @@ export let AddTodo = ({ dispatch }) => {
     <div>
       <input ref={node => { input = node }} />
       <button onClick={() => {
-        dispatch({
-          type: todosConstants.CREATE,
-          title: input.value,
-          id: nextTodoId++
-        })
+        dispatch(todosActions.create(input.value))
         input.value = ''
       }}>
         Add Todo
