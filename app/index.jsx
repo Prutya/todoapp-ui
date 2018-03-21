@@ -1,4 +1,5 @@
 import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
@@ -198,21 +199,6 @@ const TodoApp = () => {
       <Footer />
     </div>
   )
-}
-
-class Provider extends React.Component {
-  getChildContext() {
-    return {
-      store: this.props.store
-    }
-  }
-
-  render() {
-    return this.props.children
-  }
-}
-Provider.childContextTypes = {
-  store: PropTypes.object
 }
 
 ReactDOM.render(
