@@ -92,6 +92,51 @@ const TodoList = ({
   )
 }
 
+const getVisibleTodos = (
+  todos,
+  filter
+) => {
+  switch (filter) {
+    case visibilityFilterConstants.SHOW_ALL:
+      return todos
+    case visibilityFilterConstants.SHOW_COMPLETED:
+      return todos.filter(t => t.completed)
+    case visibilityFilterConstants.SHOW_ACTIVE:
+      return todos.filter(t => !t.completed)
+    default:
+      return todos
+  }
+}
+
+class VisibleTodoList extends React.Component {
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.forceUpdate()
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
+  render() {
+    const props = this.props
+    const state = store.getState()
+
+    return (
+      <TodoList
+        todos={getVisibleTodos(state.todos, state.visibilityFilter)}
+        onTodoClick={(id) => {
+          store.dispatch({
+            type: todosConstants.TOGGLE,
+            id
+          })
+        }}
+      />
+    )
+  }
+}
+
 const AddTodo = ({
   onAddClick
 }) => {
@@ -101,7 +146,11 @@ const AddTodo = ({
     <div>
       <input ref={node => { input = node }} />
       <button onClick={() => {
-        onAddClick(input.value)
+        store.dispatch({
+          type: todosConstants.CREATE,
+          title: input.value,
+          id: nextTodoId++
+        })
         input.value = ''
       }}>
         Add Todo
@@ -130,59 +179,18 @@ const Footer = () => {
   )
 }
 
-const getVisibleTodos = (
-  todos,
-  filter
-) => {
-  switch (filter) {
-    case visibilityFilterConstants.SHOW_ALL:
-      return todos
-    case visibilityFilterConstants.SHOW_COMPLETED:
-      return todos.filter(t => t.completed)
-    case visibilityFilterConstants.SHOW_ACTIVE:
-      return todos.filter(t => !t.completed)
-    default:
-      return todos
-  }
-}
-
-let nextTodoId = 0;
-const TodoApp = ({
-  todos,
-  visibilityFilter
-}) => {
-  const visibleTodos = getVisibleTodos(todos, visibilityFilter)
-
+let nextTodoId = 0
+const TodoApp = () => {
   return (
     <div>
-      <AddTodo onAddClick={(title) => {
-        store.dispatch({
-          type: todosConstants.CREATE,
-          title,
-          id: nextTodoId++
-        })
-      }}
-      />
-      <TodoList
-        todos={visibleTodos}
-        onTodoClick={(id) => {
-          store.dispatch({
-            type: todosConstants.TOGGLE,
-            id
-          })
-        }}
-      />
+      <AddTodo />
+      <VisibleTodoList />
       <Footer />
     </div>
   )
 }
 
-const render = () => {
-  ReactDOM.render(
-    <TodoApp {...store.getState()} />,
-    document.getElementById('root')
-  )
-}
-
-store.subscribe(render)
-render()
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('root')
+)
