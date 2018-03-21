@@ -1,17 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import { todosConstants } from '../constants'
 
 let nextTodoId = 0
-export const AddTodo = (props, { store }) => {
+
+export let AddTodo = ({ dispatch }) => {
   let input
 
   return (
     <div>
       <input ref={node => { input = node }} />
       <button onClick={() => {
-        store.dispatch({
+        dispatch({
           type: todosConstants.CREATE,
           title: input.value,
           id: nextTodoId++
@@ -23,6 +25,5 @@ export const AddTodo = (props, { store }) => {
     </div>
   )
 }
-AddTodo.contextTypes = {
-  store: PropTypes.object
-}
+
+AddTodo = connect()(AddTodo)
