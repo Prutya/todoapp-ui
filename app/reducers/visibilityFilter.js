@@ -1,10 +1,13 @@
-const visibilityFilter = (state = 'SHOW_ALL', action) => {
+import { visibilityFilterConstants } from '../constants'
+
+export const visibilityFilter = (
+  state = visibilityFilterConstants.SHOW_ALL,
+  action
+) => {
   switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
+    case visibilityFilterConstants.SET:
       return action.filter
     default:
       return state
   }
 }
-
-export default visibilityFilter
