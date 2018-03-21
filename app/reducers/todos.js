@@ -5,7 +5,7 @@ const todo = (state, action) => {
     case todosConstants.CREATE:
       return {
         id: action.id,
-        text: action.text,
+        title: action.title,
         completed: false
       }
     case todosConstants.TOGGLE:
