@@ -8,7 +8,7 @@ export const Root = ({ store }) => {
   return (
     <Provider store={store}>
       <Router>
-        <Route path='/' component={TodoApp} />
+        <Route path='/:filter?' component={TodoApp} />
       </Router>
     </Provider>
   )

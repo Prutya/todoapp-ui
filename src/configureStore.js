@@ -1,11 +1,10 @@
 import { combineReducers, createStore } from 'redux'
 
-import { todos, visibilityFilter } from './reducers'
+import { todos } from './reducers'
 
 const configureStore = () => {
   const todoApp = combineReducers({
-    todos,
-    visibilityFilter
+    todos
   })
 
   return createStore(todoApp)
