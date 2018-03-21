@@ -1,5 +1,6 @@
 import { createStore } from 'redux'
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 
 import { todosConstants, visibilityFilterConstants } from './constants'
@@ -29,7 +30,7 @@ const Link = ({
 
 class FilterLink extends React.Component {
   componentDidMount() {
-    const { store } = this.props
+    const { store } = this.context
     this.unsubscribe = store.subscribe(() => {
       this.forceUpdate()
     })
@@ -41,7 +42,7 @@ class FilterLink extends React.Component {
 
   render() {
     const props = this.props
-    const { store } = props
+    const { store } = this.context
     const state = store.getState()
 
     return (
@@ -58,6 +59,9 @@ class FilterLink extends React.Component {
       </Link>
     )
   }
+}
+FilterLink.contextTypes = {
+  store: PropTypes.object
 }
 
 const Todo = ({
@@ -110,7 +114,7 @@ const getVisibleTodos = (
 
 class VisibleTodoList extends React.Component {
   componentDidMount() {
-    const { store } = this.props
+    const { store } = this.context
     this.unsubscribe = store.subscribe(() => {
       this.forceUpdate()
     })
@@ -122,7 +126,7 @@ class VisibleTodoList extends React.Component {
 
   render() {
     const props = this.props
-    const { store } = props
+    const { store } = this.context
     const state = store.getState()
 
     return (
@@ -138,8 +142,11 @@ class VisibleTodoList extends React.Component {
     )
   }
 }
+VisibleTodoList.contextTypes = {
+  store: PropTypes.object
+}
 
-const AddTodo = ({ store }) => {
+const AddTodo = (props, { store }) => {
   let input
 
   return (
@@ -157,6 +164,9 @@ const AddTodo = ({ store }) => {
       </button>
     </div>
   )
+}
+AddTodo.contextTypes = {
+  store: PropTypes.object
 }
 
 const Footer = ({ store }) => {
@@ -190,7 +200,24 @@ const TodoApp = ({ store }) => {
   )
 }
 
+class Provider extends React.Component {
+  getChildContext() {
+    return {
+      store: this.props.store
+    }
+  }
+
+  render() {
+    return this.props.children
+  }
+}
+Provider.childContextTypes = {
+  store: PropTypes.object
+}
+
 ReactDOM.render(
-  <TodoApp store={createStore(todoApp)} />,
+  <Provider store={createStore(todoApp)}>
+    <TodoApp />
+  </Provider>,
   document.getElementById('root')
 )
