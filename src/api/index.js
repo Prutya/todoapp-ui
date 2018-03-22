@@ -4,15 +4,15 @@ import { visibilityFilterConstants } from '../constants'
 const fakeDatabase = {
   todos: [{
     id: v4(),
-    text: 'Learn Ruby',
+    title: 'Learn Ruby',
     completed: true,
   }, {
     id: v4(),
-    text: 'Learn C#',
+    title: 'Learn C#',
     completed: true,
   }, {
     id: v4(),
-    text: 'Learn Java',
+    title: 'Learn Java',
     completed: false,
   }],
 }

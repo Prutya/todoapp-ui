@@ -1,53 +1,72 @@
 import { combineReducers } from 'redux'
 import { todosConstants, visibilityFilterConstants } from '../constants'
-import todo from './todo'
 
 const byId = (state = {}, action) => {
   switch(action.type) {
-    case todosConstants.CREATE:
-    case todosConstants.TOGGLE:
-      return {
-        ...state,
-        [action.id]: todo(state[action.id], action)
-      }
+    case todosConstants.RECEIVE:
+      const nextState = { ...state }
+      action.response.forEach(todo => {
+        nextState[todo.id] = todo
+      })
+      return nextState
     default:
       return state
   }
 }
 
 const allIds = (state = [], action) => {
+  if (action.filter !== visibilityFilterConstants.SHOW_ALL) {
+    return state
+  }
+
   switch(action.type) {
-    case todosConstants.CREATE:
-      return [...state, action.id]
+    case todosConstants.RECEIVE:
+      return action.response.map(todo => todo.id)
     default:
       return state
   }
 }
 
+const activeIds = (state = [], action) => {
+  if (action.filter !== visibilityFilterConstants.SHOW_ACTIVE) {
+    return state
+  }
+
+  switch(action.type) {
+    case todosConstants.RECEIVE:
+      return action.response.map(todo => todo.id)
+    default:
+      return state
+  }
+}
+
+const completedIds = (state = [], action) => {
+  if (action.filter !== visibilityFilterConstants.SHOW_COMPLETED) {
+    return state
+  }
+
+  switch(action.type) {
+    case todosConstants.RECEIVE:
+      return action.response.map(todo => todo.id)
+    default:
+      return state
+  }
+}
+
+const idsByFilter = combineReducers({
+  all: allIds,
+  active: activeIds,
+  completed: completedIds,
+})
+
 const todos = combineReducers({
   byId,
-  allIds
+  idsByFilter,
 })
 
 export default todos
 
-const getAllTodos = (state) => {
-  return state.allIds.map((id) => {
-    return state.byId[id]
-  })
-}
-
 export const getVisibleTodos = (state, filter) => {
-  const allTodos = getAllTodos(state)
-
-  switch (filter) {
-    case visibilityFilterConstants.SHOW_ALL:
-      return allTodos
-    case visibilityFilterConstants.SHOW_COMPLETED:
-      return allTodos.filter(t => t.completed)
-    case visibilityFilterConstants.SHOW_ACTIVE:
-      return allTodos.filter(t => !t.completed)
-    default:
-      return allTodos
-  }
+  const ids = state.idsByFilter[filter]
+  return ids.map(id => state.byId[id])
 }
