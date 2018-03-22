@@ -8,7 +8,7 @@ const createList = (filter) => {
     }
 
     switch(action.type) {
-      case todosConstants.RECEIVE:
+      case todosConstants.FETCH_SUCCESS:
         return action.response.map(todo => todo.id)
       default:
         return state
@@ -19,12 +19,30 @@ const createList = (filter) => {
     if (action.filter !== filter) {
       return state
     }
-    
+
     switch (action.type) {
-      case todosConstants.REQUEST:
+      case todosConstants.FETCH_REQUEST:
         return true
-      case todosConstants.RECEIVE:
+      case todosConstants.FETCH_SUCCESS:
         return false
+      case todosConstants.FETCH_ERROR:
+        return false
+      default:
+        return state
+    }
+  }
+
+  const errorMessage = (state = null, action) => {
+    if (action.filter !== filter) {
+      return state
+    }
+
+    switch (action.type) {
+      case todosConstants.FETCH_ERROR:
+        return action.message
+      case todosConstants.FETCH_REQUEST:
+      case todosConstants.FETCH_SUCCESS:
+        return null
       default:
         return state
     }
@@ -33,6 +51,7 @@ const createList = (filter) => {
   return combineReducers({
     ids,
     isFetching,
+    errorMessage,
   })
 }
 
@@ -40,3 +59,4 @@ export default createList
 
 export const getIds = (state) => state.ids
 export const getIsFetching = (state) => state.isFetching
+export const getErrorMessage = (state) => state.errorMessage

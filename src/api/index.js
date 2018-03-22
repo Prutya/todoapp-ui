@@ -23,6 +23,10 @@ const delay = (ms) => (
 
 export const fetchTodos = (filter) => (
   delay(500).then(() => {
+    if (Math.random() > 0.75) {
+      throw new Error('Doom!')
+    }
+
     switch (filter) {
       case visibilityFilterConstants.SHOW_ALL:
         return fakeDatabase.todos

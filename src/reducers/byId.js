@@ -2,7 +2,7 @@ import { todosConstants } from '../constants'
 
 const byId = (state = {}, action) => {
   switch(action.type) {
-    case todosConstants.RECEIVE:
+    case todosConstants.FETCH_SUCCESS:
       const nextState = { ...state }
       action.response.forEach(todo => {
         nextState[todo.id] = todo

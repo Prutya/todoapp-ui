@@ -1,11 +1,7 @@
 import { v4 } from 'node-uuid'
 import { todosConstants } from '../constants'
+import { getIsFetching } from '../reducers'
 import * as api from '../api'
-
-export const requestTodos = (filter) => ({
-  type: todosConstants.REQUEST,
-  filter,
-})
 
 export const createTodo = (text) => ({
   type: todosConstants.CREATE,
@@ -18,14 +14,30 @@ export const toggleTodo = (id) => ({
   id,
 })
 
-const receiveTodos = (filter, response) => ({
-  type: todosConstants.RECEIVE,
-  filter,
-  response,
-})
+export const fetchTodos = (filter) => (dispatch, getState) => {
+  if (getIsFetching(getState(), filter)) {
+    return Promise.resolve()
+  }
 
-export const fetchTodos = (filter) => (
-  api.fetchTodos(filter).then(response =>
-    receiveTodos(filter, response)
+  dispatch({
+    type: todosConstants.FETCH_REQUEST,
+    filter,
+  })
+
+  return api.fetchTodos(filter).then(
+    response => {
+      dispatch({
+        type: todosConstants.FETCH_SUCCESS,
+        filter,
+        response,
+      })
+    },
+    error => {
+      dispatch({
+        type: todosConstants.FETCH_ERROR,
+        filter,
+        message: error.message || 'Something went wrong.'
+      })
+    }
   )
-)
+}
