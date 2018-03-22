@@ -1,7 +1,7 @@
 import { v4 } from 'node-uuid'
 import { todosConstants } from '../constants'
 
-const create = (text) => {
+export const createTodo = (text) => {
   return {
     type: todosConstants.CREATE,
     title: text,
@@ -9,23 +9,17 @@ const create = (text) => {
   }
 }
 
-const toggle = (id) => {
+export const toggleTodo = (id) => {
   return {
     type: todosConstants.TOGGLE,
     id,
   }
 }
 
-const receive = (filter, response) => {
+export const receiveTodos = (filter, response) => {
   return {
     type: todosConstants.RECEIVE,
     filter,
     response,
   }
-}
-
-export const todosActions = {
-  create,
-  toggle,
-  receive
 }
