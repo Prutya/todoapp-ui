@@ -1,52 +1,53 @@
+import { combineReducers } from 'redux'
 import { todosConstants, visibilityFilterConstants } from '../constants'
+import todo from './todo'
 
-const todo = (state, action) => {
-  switch (action.type) {
-    case todosConstants.CREATE:
-      return {
-        id: action.id,
-        title: action.title,
-        completed: false
-      }
-    case todosConstants.TOGGLE:
-      if (state.id !== action.id) {
-        return state
-      }
-
-      return {
-        ...state,
-        completed: !state.completed
-      }
-    default:
-      return state
-  }
-}
-
-const todos = (state = [], action) => {
+const byId = (state = {}, action) => {
   switch(action.type) {
     case todosConstants.CREATE:
-      return [
-        ...state,
-        todo(undefined, action)
-      ]
     case todosConstants.TOGGLE:
-      return state.map(t => todo(t, action))
+      return {
+        ...state,
+        [action.id]: todo(state[action.id], action)
+      }
     default:
       return state
   }
 }
+
+const allIds = (state = [], action) => {
+  switch(action.type) {
+    case todosConstants.CREATE:
+      return [...state, action.id]
+    default:
+      return state
+  }
+}
+
+const todos = combineReducers({
+  byId,
+  allIds
+})
 
 export default todos
 
-export const getVisibleTodos = (todos, filter) => {
+const getAllTodos = (state) => {
+  return state.allIds.map((id) => {
+    return state.byId[id]
+  })
+}
+
+export const getVisibleTodos = (state, filter) => {
+  const allTodos = getAllTodos(state)
+
   switch (filter) {
     case visibilityFilterConstants.SHOW_ALL:
-      return todos
+      return allTodos
     case visibilityFilterConstants.SHOW_COMPLETED:
-      return todos.filter(t => t.completed)
+      return allTodos.filter(t => t.completed)
     case visibilityFilterConstants.SHOW_ACTIVE:
-      return todos.filter(t => !t.completed)
+      return allTodos.filter(t => !t.completed)
     default:
-      return todos
+      return allTodos
   }
 }
