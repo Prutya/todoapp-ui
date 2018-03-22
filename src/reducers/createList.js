@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux'
-import { todosConstants } from '../constants'
+import { todosConstants, visibilityFilterConstants } from '../constants'
 
 const createList = (filter) => {
   const ids = (state = [], action) => {
-    if (action.filter !== filter) {
-      return state
-    }
-
     switch(action.type) {
       case todosConstants.FETCH_SUCCESS:
-        return action.response.map(todo => todo.id)
+        return action.filter === filter ?
+          action.response.map(todo => todo.id) :
+          state
+      case todosConstants.CREATE_SUCCESS:
+        return filter !== visibilityFilterConstants.SHOW_COMPLETED ?
+          [...state, action.response.id] :
+          state
       default:
         return state
     }

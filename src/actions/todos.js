@@ -1,13 +1,15 @@
-import { v4 } from 'node-uuid'
 import { todosConstants } from '../constants'
 import { getIsFetching } from '../reducers'
 import * as api from '../api'
 
-export const createTodo = (text) => ({
-  type: todosConstants.CREATE,
-  title: text,
-  id: v4(),
-})
+export const createTodo = (title) => (dispatch) => (
+  api.createTodo(title).then(response => {
+    dispatch({
+      type: todosConstants.CREATE_SUCCESS,
+      response
+    })
+  })
+)
 
 export const toggleTodo = (id) => ({
   type: todosConstants.TOGGLE,
