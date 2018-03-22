@@ -9,9 +9,7 @@ export const TodoApp = ({ match: { params } }) => {
   return (
     <div>
       <AddTodo />
-      <VisibleTodoList
-        filter={params.filter || visibilityFilterConstants.SHOW_ALL}
-      />
+      <VisibleTodoList />
       <Footer />
     </div>
   )

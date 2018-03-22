@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { TodoList } from './TodoList'
 import { visibilityFilterConstants } from '../constants'
@@ -20,11 +21,11 @@ const getVisibleTodos = (
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, { match: { params } }) => {
   return {
     todos: getVisibleTodos(
       state.todos,
-      ownProps.filter
+      params.filter || visibilityFilterConstants.SHOW_ALL
     )
   }
 }
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const VisibleTodoList = connect(
+export const VisibleTodoList = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList)
+)(TodoList))
