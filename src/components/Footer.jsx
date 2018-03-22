@@ -1,10 +1,8 @@
 import React from 'react'
-
 import FilterLink from './FilterLink'
-
 import { visibilityFilterConstants } from '../constants'
 
-export const Footer = () => {
+const Footer = () => {
   return (
     <p>
       Show:
@@ -23,3 +21,5 @@ export const Footer = () => {
     </p>
   )
 }
+
+export default Footer

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Todo = ({
+const Todo = ({
   onClick,
   completed,
   title
@@ -14,3 +14,5 @@ export const Todo = ({
     </li>
   )
 }
+
+export default Todo

@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-
 import { visibilityFilterConstants } from '../constants'
 
 const FilterLink = ({

@@ -1,4 +1,4 @@
-import { todosConstants } from '../constants'
+import { todosConstants, visibilityFilterConstants } from '../constants'
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -22,7 +22,7 @@ const todo = (state, action) => {
   }
 }
 
-export const todos = (state = [], action) => {
+const todos = (state = [], action) => {
   switch(action.type) {
     case todosConstants.CREATE:
       return [
@@ -33,5 +33,20 @@ export const todos = (state = [], action) => {
       return state.map(t => todo(t, action))
     default:
       return state
+  }
+}
+
+export default todos
+
+export const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case visibilityFilterConstants.SHOW_ALL:
+      return todos
+    case visibilityFilterConstants.SHOW_COMPLETED:
+      return todos.filter(t => t.completed)
+    case visibilityFilterConstants.SHOW_ACTIVE:
+      return todos.filter(t => !t.completed)
+    default:
+      return todos
   }
 }

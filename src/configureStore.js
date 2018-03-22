@@ -1,12 +1,7 @@
-import { combineReducers, createStore } from 'redux'
-
-import { todos } from './reducers'
+import { createStore } from 'redux'
+import todoApp from './reducers'
 
 const configureStore = () => {
-  const todoApp = combineReducers({
-    todos
-  })
-
   return createStore(todoApp)
 }
 

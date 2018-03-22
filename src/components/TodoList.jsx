@@ -1,8 +1,7 @@
 import React from 'react'
+import Todo from './Todo'
 
-import { Todo } from './Todo'
-
-export const TodoList = ({
+const TodoList = ({
   todos,
   onTodoClick
 }) => {
@@ -18,3 +17,5 @@ export const TodoList = ({
     </ul>
   )
 }
+
+export default TodoList
