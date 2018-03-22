@@ -8,7 +8,7 @@ const FilterLink = ({
   children
 }) => (
   <NavLink
-    to={filter === visibilityFilterConstants.SHOW_ALL ? '' : filter}
+    exact to={`/${filter === visibilityFilterConstants.SHOW_ALL ? '' : filter}`}
     activeStyle={{
       textDecoration: 'none',
       color: 'black'
