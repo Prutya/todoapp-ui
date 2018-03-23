@@ -2,6 +2,19 @@ import { combineReducers } from 'redux'
 import { todosConstants, visibilityFilterConstants } from '../constants'
 
 const createList = (filter) => {
+  const handleToggle = (state, action) => {
+    const { result: toggledId, entities } = action.response
+    const { completed } = entities.todos[toggledId]
+    const shouldRemove = (
+      (completed && filter === visibilityFilterConstants.SHOW_ACTIVE) ||
+      (!completed && filter === visibilityFilterConstants.SHOW_COMPLETED)
+    )
+
+    return shouldRemove ?
+      state.filter(id => id !== toggledId) :
+      state
+  }
+
   const ids = (state = [], action) => {
     switch(action.type) {
       case todosConstants.FETCH_SUCCESS:
@@ -12,6 +25,8 @@ const createList = (filter) => {
         return filter !== visibilityFilterConstants.SHOW_COMPLETED ?
           [...state, action.response.result] :
           state
+      case todosConstants.TOGGLE_SUCCESS:
+        return handleToggle(state, action)
       default:
         return state
     }

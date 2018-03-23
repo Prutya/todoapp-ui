@@ -13,10 +13,14 @@ export const createTodo = (title) => (dispatch) => (
   })
 )
 
-export const toggleTodo = (id) => ({
-  type: todosConstants.TOGGLE,
-  id,
-})
+export const toggleTodo = (id) => (dispatch) => (
+  api.toggleTodo(id).then(response => {
+    dispatch({
+      type: todosConstants.TOGGLE_SUCCESS,
+      response: normalize(response, schema.todo),
+    })
+  })
+)
 
 export const fetchTodos = (filter) => (dispatch, getState) => {
   if (getIsFetching(getState(), filter)) {
