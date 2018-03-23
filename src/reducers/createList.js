@@ -6,11 +6,11 @@ const createList = (filter) => {
     switch(action.type) {
       case todosConstants.FETCH_SUCCESS:
         return action.filter === filter ?
-          action.response.map(todo => todo.id) :
+          action.response.result :
           state
       case todosConstants.CREATE_SUCCESS:
         return filter !== visibilityFilterConstants.SHOW_COMPLETED ?
-          [...state, action.response.id] :
+          [...state, action.response.result] :
           state
       default:
         return state
