@@ -1,7 +1,7 @@
 {
   "root": "build/",
   "routes": {
-    "/bundle.js": "bundle.js"
+    "/bundle.js": "bundle.js",
     "/**": "index.html"
   },
   "clean_urls": true,
