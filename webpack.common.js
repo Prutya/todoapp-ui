@@ -1,5 +1,15 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var apiHost;
+switch (process.env.NODE_ENV) {
+  case 'production':
+    apiHost = 'https://todoapp-api-rails.herokuapp.com'
+  case 'development':
+  default:
+    apiHost = "'http://localhost:3000'"
+}
 
 module.exports = {
   output: {
@@ -42,6 +52,9 @@ module.exports = {
       template: path.resolve(__dirname, './src/templates/index.html'),
       filename: 'index.html',
       inject: 'body'
+    }),
+    new webpack.DefinePlugin({
+      __API__: apiHost
     })
   ]
 }
