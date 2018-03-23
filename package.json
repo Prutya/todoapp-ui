@@ -2,8 +2,8 @@
   "name": "todoapp-ui",
   "version": "0.0.1",
   "scripts": {
-    "start:dev": "webpack-dev-server --inline --hot --config webpack.dev.js --mode development",
-    "build:prod": "webpack --config webpack.prod.js --mode production"
+    "start": "webpack-dev-server --inline --hot --config webpack.dev.js --mode development",
+    "build": "webpack --config webpack.prod.js --mode production"
   },
   "license": "ISC",
   "dependencies": {
