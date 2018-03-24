@@ -1,14 +1,11 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { TodoApp } from './TodoApp'
+import TodoApp from './TodoApp'
 
-export const Root = ({ store }) => {
-  return (
-    <Provider store={store}>
-      <Router>
-        <Route path='/:filter?' component={TodoApp} />
-      </Router>
-    </Provider>
-  )
-}
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>
+)
+
+export default Root

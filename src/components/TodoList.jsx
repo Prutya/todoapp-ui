@@ -1,12 +1,17 @@
 import React from 'react'
 import Todo from './Todo'
 
-const TodoList = ({
-  todos,
-  onTodoClick
-}) => {
+const TodoList = ({ todos, onTodoClick, isFetching }) => {
+  if (isFetching && !todos.length) {
+    return (
+      <ul className="todo-list">
+        <Spinner/>
+      </ul>
+    )
+  }
+
   return (
-    <ul>
+    <ul className="todo-list">
       {todos.map(todo =>
         <Todo
           key={todo.id}
