@@ -2,13 +2,12 @@
   "name": "todoapp-ui",
   "version": "0.0.1",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --config webpack.dev.js --mode development",
-    "build": "webpack --config webpack.prod.js --mode production"
+    "start": "webpack-dev-server --inline --hot --mode development",
+    "build": "webpack --mode production"
   },
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "node-uuid": "^1.4.8",
     "normalizr": "^3.2.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

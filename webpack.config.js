@@ -2,7 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+const isProduction = process.env.NODE_ENV == 'production';
+const config = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
@@ -46,17 +47,25 @@ module.exports = {
       template: path.resolve(__dirname, './src/templates/index.html'),
       filename: 'index.html',
       inject: 'body'
-    }),
-    new webpack.DefinePlugin({
-      __API__: "'http://localhost:3000'"
     })
-  ],
+  ]
+};
 
-  devtool: 'eval-source-map',
+var apiHost = isProduction ?
+  "'https://todoapp-api-rails.herokuapp.com'" :
+  "'http://localhost:3000'";
 
-  devServer: {
+config.plugins.push(new webpack.DefinePlugin({
+  __API__: apiHost
+}));
+
+if (!isProduction) {
+  config.devtool = 'eval-source-map';
+  config.devServer = {
     contentBase: path.resolve(__dirname, './build'),
     port: 4000,
     historyApiFallback: true
-  }
+  };
 }
+
+module.exports = config;
