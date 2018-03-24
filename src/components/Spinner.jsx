@@ -5,3 +5,5 @@ const Spinner = () => (
     <span>Loading…</span>
   </div>
 )
+
+export default Spinner

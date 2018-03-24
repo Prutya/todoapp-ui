@@ -24,20 +24,21 @@ class TodoApp extends React.Component {
   }
 
   render() {
-    const { groups, selectGroup, todos, toggleTodo } = this.props
+    const { groups, selectGroup, todos, toggleTodo, isFetchingGroups } = this.props
 
     return (
-      <main className="todoapp">
+      <div className="todoapp">
         <GroupList
           groups={groups}
           onGroupClick={selectGroup}
+          isFetching={isFetchingGroups}
         />
 
         <TodoList
           todos={todos}
           onTodoClick={toggleTodo}
         />
-      </main>
+      </div>
     )
   }
 }
@@ -45,7 +46,7 @@ class TodoApp extends React.Component {
 const mapStateToProps = (state) => ({
   groups: state.groups,
   todos: state.todos,
-  isFetchingTodos: state.isFetchingGroups
+  isFetchingGroups: state.isFetchingGroups
 })
 
 TodoApp = connect(

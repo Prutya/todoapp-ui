@@ -1,7 +1,57 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: sans-serif;
+  color: #576366;
+}
+
+ul {
+  list-style: none;
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.todoapp-root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.todoapp {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background-color: #f6f9fa;
+  @include clearfix;
+}
+
+.group-list {
+  width: 25%;
+  float: left;
+}
+
+.group {
+  padding: 20px;
+  cursor: pointer;
+
+  &--active {
+    background-color: #ffffff;
+  }
+}
+
+.todo-list {
+  width: 75%;
+  height: 100%;
+  float: left;
+  padding: 10px;
+  background-color: #ffffff;
 }

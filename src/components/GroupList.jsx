@@ -1,5 +1,6 @@
 import React from 'react'
 import Group from './Group'
+import Spinner from './Spinner'
 
 const GroupList = ({ groups, onGroupClick, isFetching }) => {
   if (isFetching) {
