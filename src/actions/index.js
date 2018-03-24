@@ -15,3 +15,21 @@ export const fetchGroups = () => (dispatch) => {
     })
   })
 }
+
+export const fetchTodos = (groupId) => (dispatch) => {
+  // TODO: if (isFetching) return Promise.resolve()
+
+  dispatch({
+    type: 'TODOS_INDEX_REQUEST',
+    groupId
+    // TODO: pagination?
+  })
+
+  return api.fetchTodos(id).then(response => {
+    dispatch({
+      type: 'TODOS_INDEX_SUCCESS',
+      id,
+      response
+    })
+  })
+}

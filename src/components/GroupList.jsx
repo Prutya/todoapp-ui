@@ -2,7 +2,7 @@ import React from 'react'
 import Group from './Group'
 
 const GroupList = ({ groups, onGroupClick, isFetching }) => {
-  if (isFetching && !groups.length) {
+  if (isFetching) {
     return (
       <ul className='group-list'>
         <Spinner/>
@@ -12,7 +12,7 @@ const GroupList = ({ groups, onGroupClick, isFetching }) => {
 
   return (
     <ul className='group-list'>
-      {group.map(group =>
+      {groups.map(group =>
         <Group
           key={group.id}
           {...group}

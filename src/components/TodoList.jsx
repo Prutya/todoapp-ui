@@ -2,7 +2,7 @@ import React from 'react'
 import Todo from './Todo'
 
 const TodoList = ({ todos, onTodoClick, isFetching }) => {
-  if (isFetching && !todos.length) {
+  if (isFetching) {
     return (
       <ul className="todo-list">
         <Spinner/>

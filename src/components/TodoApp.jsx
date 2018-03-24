@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import GroupList from './GroupList'
 import TodoList from './TodoList'
-import * as groupActions from '../actions/groups'
+import * as actions from '../actions'
 
 class TodoApp extends React.Component {
   componentDidMount() {
@@ -43,16 +43,14 @@ class TodoApp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  groups: getGroups(state),
-  todos: getTodos(state),
-  isFetchingGroups: getIsFetchingGroups(state),
-  isFetchingTodos: getIsFetchingTodos(state),
-  currentGroupId: getCurrentGroupId(state)
+  groups: state.groups,
+  todos: state.todos,
+  isFetchingTodos: state.isFetchingGroups
 })
 
-TodoApp = connect({
+TodoApp = connect(
   mapStateToProps,
-  groupActions
-})(TodoApp)
+  actions
+)(TodoApp)
 
 export default TodoApp
