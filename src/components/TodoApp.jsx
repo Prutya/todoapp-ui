@@ -6,51 +6,33 @@ import * as actions from '../actions'
 
 class TodoApp extends React.Component {
   componentDidMount() {
-    this.fetchData()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.currentGroupId === prevProps.currentGroupId) {
-      return
-    }
-
-    this.fetchData()
-  }
-
-  fetchData() {
-    const { currentGroupId, fetchGroups } = this.props
-
-    fetchGroups()
+    this.props.fetchGroups()
   }
 
   render() {
-    const { groups, selectGroup, todos, toggleTodo, isFetchingGroups } = this.props
+    const { groups, todos, fetchTodos, isFetchingGroups, isFetchingTodos, toggleTodo, currentGroupId } = this.props
 
     return (
       <div className="todoapp">
         <GroupList
           groups={groups}
-          onGroupClick={selectGroup}
+          onGroupClick={fetchTodos}
+          currentGroupId={currentGroupId}
           isFetching={isFetchingGroups}
         />
 
         <TodoList
           todos={todos}
           onTodoClick={toggleTodo}
+          isFetching={isFetchingTodos}
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  groups: state.groups,
-  todos: state.todos,
-  isFetchingGroups: state.isFetchingGroups
-})
-
 TodoApp = connect(
-  mapStateToProps,
+  (state) => (state),
   actions
 )(TodoApp)
 

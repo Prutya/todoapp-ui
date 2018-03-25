@@ -20,14 +20,29 @@ export const fetchTodos = (groupId) => (dispatch) => {
   // TODO: if (isFetching) return Promise.resolve()
 
   dispatch({
-    type: 'TODOS_INDEX_REQUEST',
+    type: 'TODOS_FETCH_REQUEST',
     groupId
     // TODO: pagination?
   })
 
-  return api.fetchTodos(id).then(response => {
+  return api.fetchTodos(groupId).then(response => {
     dispatch({
-      type: 'TODOS_INDEX_SUCCESS',
+      type: 'TODOS_FETCH_SUCCESS',
+      groupId,
+      response
+    })
+  })
+}
+
+export const toggleTodo = (id) => (dispatch) => {
+  dispatch({
+    type: 'TODOS_TOGGLE_REQUEST',
+    id
+  })
+
+  return api.toggleTodo(id).then(response => {
+    dispatch({
+      type: 'TODOS_TOGGLE_SUCCESS',
       id,
       response
     })

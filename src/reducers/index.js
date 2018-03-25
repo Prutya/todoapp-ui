@@ -10,7 +10,21 @@ const groups = (state = [], action) => {
 }
 
 const todos = (state = [], action) => {
-  return state
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.response
+    default:
+      return state
+  }
+}
+
+const currentGroupId = (state = null, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.groupId
+    default:
+      return state
+  }
 }
 
 const isFetchingGroups = (state = true, action) => {
@@ -30,7 +44,7 @@ const isFetchingTodos = (state = false, action) => {
     case 'TODOS_FETCH_REQUEST':
       return true
     case 'TODOS_FETCH_SUCCESS':
-    case 'GROUPS_FETCH_ERROR':
+    case 'TODOS_FETCH_ERROR':
       return false
     default:
       return state
@@ -41,5 +55,6 @@ export const todoApp = combineReducers({
   groups,
   todos,
   isFetchingGroups,
-  isFetchingTodos
+  isFetchingTodos,
+  currentGroupId
 })
