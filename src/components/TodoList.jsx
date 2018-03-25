@@ -1,26 +1,35 @@
 import React from 'react'
 import Todo from './Todo'
 import Spinner from './Spinner'
+import NoEntriesMessage from './NoEntriesMessage'
 
 const TodoList = ({ todos, onTodoClick, isFetching }) => {
+  const wrapGutter = (gutter) => (
+    <ul className='todo-list'>
+      {gutter}
+    </ul>
+  )
+
   if (isFetching) {
-    return (
-      <ul className="todo-list">
-        <Spinner/>
-      </ul>
+    return wrapGutter(
+      <Spinner/>
     )
   }
 
-  return (
-    <ul className="todo-list">
-      {todos.map(todo =>
-        <Todo
-          key={todo.id}
-          {...todo}
-          onClick={() => onTodoClick(todo.id)}
-        />
-      )}
-    </ul>
+  if (!todos.length) {
+    return wrapGutter(
+      <NoEntriesMessage/>
+    )
+  }
+
+  return wrapGutter(
+    todos.map(todo =>
+      <Todo
+        key={todo.id}
+        {...todo}
+        onClick={() => onTodoClick(todo.id)}
+      />
+    )
   )
 }
 

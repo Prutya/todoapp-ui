@@ -10,7 +10,15 @@ class TodoApp extends React.Component {
   }
 
   render() {
-    const { groups, todos, fetchTodos, isFetchingGroups, isFetchingTodos, toggleTodo, currentGroupId } = this.props
+    const {
+      groups,
+      todos,
+      fetchTodos,
+      isFetchingGroups,
+      isFetchingTodos,
+      toggleTodo,
+      currentGroupId
+    } = this.props
 
     return (
       <div className="todoapp">
