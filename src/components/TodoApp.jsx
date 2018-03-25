@@ -6,7 +6,9 @@ import * as actions from '../actions'
 
 class TodoApp extends React.Component {
   componentDidMount() {
-    this.props.fetchGroups()
+    const { fetchGroups } = this.props
+
+    fetchGroups()
   }
 
   render() {

@@ -21,33 +21,22 @@ ul {
   }
 }
 
-@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
-  @if $inset {
-    -webkit-box-shadow:inset $top $left $blur $color;
-    -moz-box-shadow:inset $top $left $blur $color;
-    box-shadow:inset $top $left $blur $color;
-  } @else {
-    -webkit-box-shadow: $top $left $blur $color;
-    -moz-box-shadow: $top $left $blur $color;
-    box-shadow: $top $left $blur $color;
-  }
-}
-
 .todoapp-root {
   width: 100vw;
   height: 100vh;
+  background-color: #edf4f5;
 }
 
 .todoapp {
-  width: 100%;
+  width: 680px;
+  margin: auto;
   height: 100%;
   padding: 10px;
-  background-color: #f6f9fa;
   @include clearfix;
 }
 
 .group-list {
-  width: 25%;
+  width: 20%;
   height: 100%;
   float: left;
 }
@@ -55,41 +44,17 @@ ul {
 .group {
   padding: 20px;
   cursor: pointer;
-  position: relative;
 
   &--active {
     background-color: #ffffff;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-      @include box-shadow(0px, 5px, 5px, rgba(0, 0, 0, 0.1))
-    }
   }
 }
 
 .todo-list {
-  width: 75%;
+  width: 80%;
   height: 100%;
   float: left;
   background-color: #ffffff;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    @include box-shadow(0px, 5px, 5px, rgba(0, 0, 0, 0.1))
-  }
 }
 
 .todo {
