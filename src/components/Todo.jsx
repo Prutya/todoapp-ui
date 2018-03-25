@@ -1,15 +1,10 @@
 import React from 'react'
 
-const Todo = ({
-  onClick,
-  completed,
-  title
-}) => {
+const Todo = ({ onClick, completed, title }) => {
+  const className = completed ? 'todo todo--completed' : 'todo'
+
   return (
-    <li onClick={onClick}
-        style={{
-          textDecoration: completed ? 'line-through' : 'none'
-        }}>
+    <li onClick={onClick} className={className}>
       {title}
     </li>
   )

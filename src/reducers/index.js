@@ -1,31 +1,87 @@
 import { combineReducers } from 'redux'
-import { todosConstants, visibilityFilterConstants } from '../constants'
-import byId, * as fromById from './byId'
-import createList, * as fromList from './createList'
 
-const listByFilter = combineReducers({
-  all: createList(visibilityFilterConstants.SHOW_ALL),
-  active: createList(visibilityFilterConstants.SHOW_ACTIVE),
-  completed: createList(visibilityFilterConstants.SHOW_COMPLETED),
-})
-
-const todos = combineReducers({
-  byId,
-  listByFilter,
-})
-
-export default todos
-
-export const getVisibleTodos = (state, filter) => {
-  const ids = fromList.getIds(state.listByFilter[filter])
-
-  return ids.map(id => fromById.getTodo(state.byId, id))
+const groupIds = (state = [], action) => {
+  switch (action.type) {
+    case 'GROUPS_FETCH_SUCCESS':
+      return action.response.result
+    default:
+      return state
+  }
 }
 
-export const getIsFetching = (state, filter) => (
-  fromList.getIsFetching(state.listByFilter[filter])
-)
+const groupsById = (state = {}, action) => {
+  switch (action.type) {
+    case 'GROUPS_FETCH_SUCCESS':
+      return action.response.entities.todo_group || {}
+    default:
+      return state
+  }
+}
 
-export const getErrorMessage = (state, filter) => (
-  fromList.getErrorMessage(state.listByFilter[filter])
-)
+const todoIds = (state = [], action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.response.result
+    default:
+      return state
+  }
+}
+
+const todosById = (state = {}, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.response.entities.todo || {}
+    case 'TODOS_TOGGLE_SUCCESS':
+      const id   = action.response.result
+      const todo = action.response.entities.todo[id]
+      return {
+        ...state,
+        [id]: todo
+      }
+    default:
+      return state
+  }
+}
+
+const currentGroupId = (state = null, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.groupId
+    default:
+      return state
+  }
+}
+
+const isFetchingGroups = (state = true, action) => {
+  switch (action.type) {
+    case 'GROUPS_FETCH_REQUEST':
+      return true
+    case 'GROUPS_FETCH_SUCCESS':
+    case 'GROUPS_FETCH_ERROR':
+      return false
+    default:
+      return state
+  }
+}
+
+const isFetchingTodos = (state = false, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_REQUEST':
+      return true
+    case 'TODOS_FETCH_SUCCESS':
+    case 'TODOS_FETCH_ERROR':
+      return false
+    default:
+      return state
+  }
+}
+
+export const todoApp = combineReducers({
+  groupIds,
+  groupsById,
+  todoIds,
+  todosById,
+  isFetchingGroups,
+  isFetchingTodos,
+  currentGroupId
+})

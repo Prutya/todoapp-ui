@@ -1,7 +1,154 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: sans-serif;
+  color: #576366;
+}
+
+ul {
+  list-style: none;
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.todoapp-root {
+  width: 100vw;
+  height: 100vh;
+  background-color: #edf4f5;
+}
+
+.todoapp {
+  width: 680px;
+  margin: auto;
+  height: 100%;
+  padding: 10px;
+  @include clearfix;
+}
+
+.group-list {
+  width: 20%;
+  height: 100%;
+  float: left;
+}
+
+.group {
+  padding: 20px;
+  cursor: pointer;
+
+  &--active {
+    background-color: #ffffff;
+  }
+}
+
+.todo-list {
+  width: 80%;
+  height: 100%;
+  float: left;
+  background-color: #ffffff;
+}
+
+.todo {
+  padding: 20px;
+  cursor: pointer;
+
+  &--completed {
+    text-decoration: line-through;
+  }
+}
+
+.no-entries-message {
+  padding: 20px;
+}
+
+.spinner-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  margin-top: 120px;
+}
+
+.spinner-cube-grid .spinner-cube {
+  width: 33%;
+  height: 33%;
+  background-color: #d35400;
+  float: left;
+  -webkit-animation: spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.spinner-cube-grid .spinner-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+.spinner-cube-grid .spinner-cube2 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.spinner-cube-grid .spinner-cube3 {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.spinner-cube-grid .spinner-cube4 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.spinner-cube-grid .spinner-cube5 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.spinner-cube-grid .spinner-cube6 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.spinner-cube-grid .spinner-cube7 {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.spinner-cube-grid .spinner-cube8 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.spinner-cube-grid .spinner-cube9 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+@-webkit-keyframes spinner-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+@keyframes spinner-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  }
 }
