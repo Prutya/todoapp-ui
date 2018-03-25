@@ -31,6 +31,13 @@ const todosById = (state = {}, action) => {
   switch (action.type) {
     case 'TODOS_FETCH_SUCCESS':
       return action.response.entities.todo || {}
+    case 'TODOS_TOGGLE_SUCCESS':
+      const id   = action.response.result
+      const todo = action.response.entities.todo[id]
+      return {
+        ...state,
+        [id]: todo
+      }
     default:
       return state
   }

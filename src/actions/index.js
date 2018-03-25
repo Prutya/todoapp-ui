@@ -46,7 +46,7 @@ export const toggleTodo = (id) => (dispatch) => {
     dispatch({
       type: 'TODOS_TOGGLE_SUCCESS',
       id,
-      response
+      response: normalize(response, schema.todo)
     })
   })
 }
