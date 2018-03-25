@@ -13,8 +13,10 @@ class TodoApp extends React.Component {
 
   render() {
     const {
-      groups,
-      todos,
+      groupIds,
+      groupsById,
+      todoIds,
+      todosById,
       fetchTodos,
       isFetchingGroups,
       isFetchingTodos,
@@ -25,14 +27,16 @@ class TodoApp extends React.Component {
     return (
       <div className="todoapp">
         <GroupList
-          groups={groups}
+          groupIds={groupIds}
+          groupsById={groupsById}
           onGroupClick={fetchTodos}
           currentGroupId={currentGroupId}
           isFetching={isFetchingGroups}
         />
 
         <TodoList
-          todos={todos}
+          todoIds={todoIds}
+          todosById={todosById}
           onTodoClick={toggleTodo}
           isFetching={isFetchingTodos}
         />

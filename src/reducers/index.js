@@ -1,18 +1,36 @@
 import { combineReducers } from 'redux'
 
-const groups = (state = [], action) => {
+const groupIds = (state = [], action) => {
   switch (action.type) {
     case 'GROUPS_FETCH_SUCCESS':
-      return action.response
+      return action.response.result
     default:
       return state
   }
 }
 
-const todos = (state = [], action) => {
+const groupsById = (state = {}, action) => {
+  switch (action.type) {
+    case 'GROUPS_FETCH_SUCCESS':
+      return action.response.entities.todo_group || {}
+    default:
+      return state
+  }
+}
+
+const todoIds = (state = [], action) => {
   switch (action.type) {
     case 'TODOS_FETCH_SUCCESS':
-      return action.response
+      return action.response.result
+    default:
+      return state
+  }
+}
+
+const todosById = (state = {}, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_SUCCESS':
+      return action.response.entities.todo || {}
     default:
       return state
   }
@@ -52,8 +70,10 @@ const isFetchingTodos = (state = false, action) => {
 }
 
 export const todoApp = combineReducers({
-  groups,
-  todos,
+  groupIds,
+  groupsById,
+  todoIds,
+  todosById,
   isFetchingGroups,
   isFetchingTodos,
   currentGroupId

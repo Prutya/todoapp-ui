@@ -3,7 +3,7 @@ import Group from './Group'
 import Spinner from './Spinner'
 import NoEntriesMessage from './NoEntriesMessage'
 
-const GroupList = ({ groups, onGroupClick, isFetching, currentGroupId }) => {
+const GroupList = ({ groupIds, groupsById, onGroupClick, isFetching, currentGroupId }) => {
   const wrapGutter = (gutter) => (
     <ul className='group-list'>
       {gutter}
@@ -16,11 +16,13 @@ const GroupList = ({ groups, onGroupClick, isFetching, currentGroupId }) => {
     )
   }
 
-  if (!groups.length) {
+  if (!groupIds.length) {
     return wrapGutter(
       <NoEntriesMessage/>
     )
   }
+
+  const groups = groupIds.map(id => groupsById[id])
 
   return wrapGutter(
     groups.map(group =>

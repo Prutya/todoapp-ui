@@ -1,4 +1,6 @@
+import { normalize } from 'normalizr'
 import * as api from '../api'
+import * as schema from './schema'
 
 export const fetchGroups = () => (dispatch) => {
   // TODO: if (isFetching) return Promise.resolve()
@@ -11,7 +13,7 @@ export const fetchGroups = () => (dispatch) => {
   return api.fetchGroups().then(response => {
     dispatch({
       type: 'GROUPS_FETCH_SUCCESS',
-      response
+      response: normalize(response, schema.groups)
     })
   })
 }
@@ -29,7 +31,7 @@ export const fetchTodos = (groupId) => (dispatch) => {
     dispatch({
       type: 'TODOS_FETCH_SUCCESS',
       groupId,
-      response
+      response: normalize(response, schema.todos)
     })
   })
 }
