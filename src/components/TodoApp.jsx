@@ -13,10 +13,8 @@ class TodoApp extends React.Component {
 
   render() {
     const {
-      groupIds,
-      groupsById,
-      todoIds,
-      todosById,
+      groups,
+      todos,
       fetchTodos,
       isFetchingGroups,
       isFetchingTodos,
@@ -27,16 +25,14 @@ class TodoApp extends React.Component {
     return (
       <div className="todoapp">
         <GroupList
-          groupIds={groupIds}
-          groupsById={groupsById}
+          groups={groups}
           onGroupClick={fetchTodos}
           currentGroupId={currentGroupId}
           isFetching={isFetchingGroups}
         />
 
         <TodoList
-          todoIds={todoIds}
-          todosById={todosById}
+          todos={todos}
           onTodoClick={toggleTodo}
           isFetching={isFetchingTodos}
         />
@@ -46,7 +42,13 @@ class TodoApp extends React.Component {
 }
 
 TodoApp = connect(
-  (state) => (state),
+  (state) => ({
+    groups: state.groupIds.map(id => state.groupsById[id]),
+    todos:  state.todoIds.map(id => state.todosById[id]),
+    isFetchingGroups: state.isFetchingGroups,
+    isFetchingTodos: state.isFetchingTodos,
+    currentGroupId: state.currentGroupId
+  }),
   actions
 )(TodoApp)
 

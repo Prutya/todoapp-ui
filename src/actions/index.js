@@ -50,3 +50,17 @@ export const toggleTodo = (id) => (dispatch) => {
     })
   })
 }
+
+export const createTodo = (groupId, title) => (dispatch) => {
+  dispatch({
+    type: 'TODOS_CREATE_REQUEST',
+    groupId,
+    title
+  })
+
+  return api.createTodo(groupId, title).then(response => {
+    type: 'TOGOS_CREATE_SUCCESS',
+    groupId,
+    response
+  })
+}
