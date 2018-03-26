@@ -41,6 +41,15 @@ ul {
     transition:         $transition;
 }
 
+.github-link {
+  color: $color-main-light-1;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+
 .todoapp-root {
   width: 100vw;
   height: 100vh;
@@ -70,23 +79,24 @@ ul {
 .group {
   padding: 20px;
   cursor: pointer;
-  border-left-width: 0;
-  @include transition(background-color 200ms ease-out);
-  @include transition(border-left-width 200ms ease-out);
-
-  &--active {
-    background-color: $color-sub-2;
-    border-left: 5px solid $color-main;
-  }
+  border-left: 0 solid transparent;
+  background-color: transparent;
+  @include transition(
+    background-color 200ms ease-in-out,
+    border-left-width 200ms ease-in-out
+  );
 
   &:hover {
     background-color: $color-sub-2-trans;
   }
-}
 
-.group.group--active {
-  &:hover {
+  &--active {
     background-color: $color-sub-2;
+    border-left: 5px solid $color-main;
+
+    &:hover {
+      background-color: $color-sub-2;
+    }
   }
 }
 
