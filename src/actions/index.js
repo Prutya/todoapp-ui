@@ -3,11 +3,8 @@ import * as api from '../api'
 import * as schema from './schema'
 
 export const fetchGroups = () => (dispatch) => {
-  // TODO: if (isFetching) return Promise.resolve()
-
   dispatch({
     type: 'GROUPS_FETCH_REQUEST'
-    // TODO: pagination?
   })
 
   return api.fetchGroups().then(response => {
@@ -19,12 +16,9 @@ export const fetchGroups = () => (dispatch) => {
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {
-  // TODO: if (isFetching) return Promise.resolve()
-
   dispatch({
     type: 'TODOS_FETCH_REQUEST',
     groupId
-    // TODO: pagination?
   })
 
   return api.fetchTodos(groupId).then(response => {
@@ -59,8 +53,10 @@ export const createTodo = (groupId, title) => (dispatch) => {
   })
 
   return api.createTodo(groupId, title).then(response => {
-    type: 'TOGOS_CREATE_SUCCESS',
-    groupId,
-    response
+    dispatch({
+      type: 'TOGOS_CREATE_SUCCESS',
+      groupId,
+      response: normalize(response, schema.todo),
+    })
   })
 }
