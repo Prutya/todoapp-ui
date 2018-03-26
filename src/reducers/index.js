@@ -13,15 +13,25 @@ const groupsById = (state = {}, action) => {
   switch (action.type) {
     case 'GROUPS_FETCH_SUCCESS':
       return action.response.entities.todoGroups || {}
-    default:
-      return state
-  }
-}
-
-const todoIds = (state = [], action) => {
-  switch (action.type) {
     case 'TODOS_FETCH_SUCCESS':
-      return action.response.result
+      return {
+        ...state,
+        [action.groupId]: {
+          ...state[action.groupId],
+          ['todoIds']: action.response.result
+        }
+      }
+    case 'TODOS_CREATE_SUCCESS':
+      return {
+        ...state,
+        [action.groupId]: {
+          ...state[action.groupId],
+          ['todoIds']: [
+            action.response.result,
+            ...state[action.groupId].todoIds
+          ]
+        }
+      }
     default:
       return state
   }
@@ -31,6 +41,7 @@ const todosById = (state = {}, action) => {
   switch (action.type) {
     case 'TODOS_FETCH_SUCCESS':
       return action.response.entities.todos || {}
+    case 'TODOS_CREATE_SUCCESS':
     case 'TODOS_TOGGLE_SUCCESS':
       const id   = action.response.result
       const todo = action.response.entities.todos[id]
@@ -79,7 +90,6 @@ const isFetchingTodos = (state = false, action) => {
 export const todoApp = combineReducers({
   groupIds,
   groupsById,
-  todoIds,
   todosById,
   isFetchingGroups,
   isFetchingTodos,

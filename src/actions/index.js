@@ -54,7 +54,7 @@ export const createTodo = (groupId, title) => (dispatch) => {
 
   return api.createTodo(groupId, title).then(response => {
     dispatch({
-      type: 'TOGOS_CREATE_SUCCESS',
+      type: 'TODOS_CREATE_SUCCESS',
       groupId,
       response: normalize(response, schema.todo),
     })

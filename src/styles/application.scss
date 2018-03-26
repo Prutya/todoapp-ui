@@ -6,6 +6,7 @@
 
 body {
   font-family: sans-serif;
+  font-weight: 200;
   color: #576366;
 }
 
@@ -56,7 +57,7 @@ ul {
 
 .todo-list {
   width: 80%;
-  height: 100%;
+  height: calc(100% - 58px);
   float: left;
   background-color: #ffffff;
 
@@ -71,6 +72,47 @@ ul {
 
   &--completed {
     text-decoration: line-through;
+  }
+}
+
+.add-todo {
+  width: 80%;
+  height: 58px;
+  float: left;
+  background-color: #ffffff;
+  padding: 10px;
+  @include clearfix;
+
+  &__input {
+    outline: none;
+    padding: 10px;
+    font-size: inherit;
+    font-weight: inherit;
+    float: left;
+    height: 100%;
+    width: calc(100% - 100px);
+    line-height: 48px;
+  }
+
+  &__btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #d35400;
+    font-size: inherit;
+    font-weight: inherit;
+    float: left;
+    height: 100%;
+    width: 100px;
+
+    &:hover {
+      background-color: #c35813;
+    }
+
+    &:active {
+      background-color: #b35213;
+    }
   }
 }
 
