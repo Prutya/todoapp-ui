@@ -11,7 +11,7 @@ const defaultArgs = {
 
 export const fetchGroups = () => (
   axios.get(groupsEndpoint, defaultArgs)
-    .then(response => response.data.todo_groups)
+    .then(response => response.data.todoGroups)
 )
 
 export const fetchTodos = (groupId) => (

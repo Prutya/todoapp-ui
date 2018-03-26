@@ -6,6 +6,7 @@
 
 body {
   font-family: sans-serif;
+  font-weight: 200;
   color: #576366;
 }
 
@@ -39,6 +40,10 @@ ul {
   width: 20%;
   height: 100%;
   float: left;
+
+  .spinner-cube-grid {
+    margin-top: 120px;
+  }
 }
 
 .group {
@@ -52,9 +57,13 @@ ul {
 
 .todo-list {
   width: 80%;
-  height: 100%;
+  height: calc(100% - 58px);
   float: left;
   background-color: #ffffff;
+
+  .spinner-cube-grid {
+    margin-top: 120px;
+  }
 }
 
 .todo {
@@ -66,6 +75,47 @@ ul {
   }
 }
 
+.add-todo {
+  width: 80%;
+  height: 58px;
+  float: left;
+  background-color: #ffffff;
+  padding: 10px;
+  @include clearfix;
+
+  &__input {
+    outline: none;
+    padding: 10px;
+    font-size: inherit;
+    font-weight: inherit;
+    float: left;
+    height: 100%;
+    width: calc(100% - 100px);
+    line-height: 48px;
+  }
+
+  &__btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #d35400;
+    font-size: inherit;
+    font-weight: inherit;
+    float: left;
+    height: 100%;
+    width: 100px;
+
+    &:hover {
+      background-color: #c35813;
+    }
+
+    &:active {
+      background-color: #b35213;
+    }
+  }
+}
+
 .no-entries-message {
   padding: 20px;
 }
@@ -74,7 +124,6 @@ ul {
   width: 40px;
   height: 40px;
   margin: auto;
-  margin-top: 120px;
 }
 
 .spinner-cube-grid .spinner-cube {

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import GroupList from './GroupList'
 import TodoList from './TodoList'
+import AddTodo from './AddTodo'
 import * as actions from '../actions'
 
 class TodoApp extends React.Component {
@@ -13,30 +14,32 @@ class TodoApp extends React.Component {
 
   render() {
     const {
-      groupIds,
-      groupsById,
-      todoIds,
-      todosById,
+      groups,
+      todos,
       fetchTodos,
       isFetchingGroups,
       isFetchingTodos,
       toggleTodo,
+      createTodo,
       currentGroupId
     } = this.props
 
     return (
       <div className="todoapp">
         <GroupList
-          groupIds={groupIds}
-          groupsById={groupsById}
+          groups={groups}
           onGroupClick={fetchTodos}
           currentGroupId={currentGroupId}
           isFetching={isFetchingGroups}
         />
 
+        <AddTodo
+          groupId={currentGroupId}
+          onAddClick={createTodo}
+        />
+
         <TodoList
-          todoIds={todoIds}
-          todosById={todosById}
+          todos={todos}
           onTodoClick={toggleTodo}
           isFetching={isFetchingTodos}
         />
@@ -46,7 +49,13 @@ class TodoApp extends React.Component {
 }
 
 TodoApp = connect(
-  (state) => (state),
+  (state) => ({
+    groups: state.groupIds.map(id => state.groupsById[id]),
+    todos: ((state.groupsById[state.currentGroupId] || {}).todoIds || []).map(id => state.todosById[id]),
+    isFetchingGroups: state.isFetchingGroups,
+    isFetchingTodos: state.isFetchingTodos,
+    currentGroupId: state.currentGroupId
+  }),
   actions
 )(TodoApp)
 

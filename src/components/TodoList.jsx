@@ -3,7 +3,7 @@ import Todo from './Todo'
 import Spinner from './Spinner'
 import NoEntriesMessage from './NoEntriesMessage'
 
-const TodoList = ({ todoIds, todosById, onTodoClick, isFetching }) => {
+const TodoList = ({ todos, onTodoClick, isFetching }) => {
   const wrapGutter = (gutter) => (
     <ul className='todo-list'>
       {gutter}
@@ -16,13 +16,11 @@ const TodoList = ({ todoIds, todosById, onTodoClick, isFetching }) => {
     )
   }
 
-  if (!todoIds.length) {
+  if (!todos.length) {
     return wrapGutter(
       <NoEntriesMessage/>
     )
   }
-
-  const todos = todoIds.map(id => todosById[id])
 
   return wrapGutter(
     todos.map(todo =>

@@ -7,5 +7,7 @@ REST backend can be found [here (Node)](https://github.com/xSaber/todoapp-api) o
 ## TBD
 * Groups pagination (infinite scroll)
 * Todos pagination (infinite scroll)
-* Create Todo form
+* ~~Create Todo form~~
+* Refactor Todo form
 * Automatically select the last updated group
+* Handle api errors
