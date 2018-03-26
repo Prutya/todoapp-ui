@@ -5,10 +5,10 @@ An implementation of [Getting Started with Redux](https://egghead.io/courses/get
 REST backend can be found [here (Node)](https://github.com/xSaber/todoapp-api) or [here (Rails)](https://github.com/Prutya/todoapp-api).
 
 ## TBD
-* Groups pagination (infinite scroll)
-* Todos pagination (infinite scroll)
-* ~~Create Todo form~~
-* Refactor Todo form
-* Automatically select the last updated group
-* Handle api errors
-* Create Group form/modal?
+1. Groups pagination (infinite scroll)
+1. Todos pagination (infinite scroll)
+1. ~~Create Todo form~~
+1. Refactor Todo form
+1. Automatically select the last updated group
+1. Handle api errors
+1. Create Group form/modal?
