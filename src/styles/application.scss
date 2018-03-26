@@ -69,10 +69,13 @@ ul {
 .group {
   padding: 20px;
   cursor: pointer;
+  border-left-width: 0;
   @include transition(background-color 200ms ease-out);
+  @include transition(border-left-width 200ms ease-out);
 
   &--active {
     background-color: $color-sub-2;
+    border-left: 5px solid $color-main;
   }
 
   &:hover {
