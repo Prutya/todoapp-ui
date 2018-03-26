@@ -7,12 +7,20 @@ export const fetchGroups = () => (dispatch) => {
     type: 'GROUPS_FETCH_REQUEST'
   })
 
-  return api.fetchGroups().then(response => {
-    dispatch({
-      type: 'GROUPS_FETCH_SUCCESS',
-      response: normalize(response, schema.groups)
+  return api.fetchGroups()
+    .then(response => {
+      const normalizedResponse = normalize(response, schema.groups)
+      const lastGroupId = normalizedResponse.result[0]
+
+      dispatch({
+        type: 'GROUPS_FETCH_SUCCESS',
+        response: normalize(response, schema.groups)
+      })
+
+      if (!!lastGroupId) {
+        fetchTodos(lastGroupId)(dispatch)
+      }
     })
-  })
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {
