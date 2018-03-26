@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isProduction = process.env.NODE_ENV == 'production';
 const config = {
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build')
   },
 
