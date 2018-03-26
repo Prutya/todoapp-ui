@@ -6,14 +6,13 @@ import NoEntriesMessage from './NoEntriesMessage'
 const TodoList = ({ todos, onTodoClick, isFetching }) => {
   const wrapGutter = (gutter) => (
     <ul className='todo-list'>
+      <Spinner active={isFetching}/>
       {gutter}
     </ul>
   )
-
+  
   if (isFetching) {
-    return wrapGutter(
-      <Spinner/>
-    )
+    return wrapGutter(null)
   }
 
   if (!todos.length) {

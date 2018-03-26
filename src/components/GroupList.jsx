@@ -6,14 +6,13 @@ import NoEntriesMessage from './NoEntriesMessage'
 const GroupList = ({ groups, onGroupClick, isFetching, currentGroupId }) => {
   const wrapGutter = (gutter) => (
     <ul className='group-list'>
+      <Spinner active={isFetching}/>
       {gutter}
     </ul>
   )
 
   if (isFetching) {
-    return wrapGutter(
-      <Spinner/>
-    )
+    return wrapGutter(null)
   }
 
   if (!groups.length) {
