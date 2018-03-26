@@ -20,9 +20,18 @@ const config = {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader'   },
-          { loader: 'sass-loader'  }
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: isProduction
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
         ]
       },
       {

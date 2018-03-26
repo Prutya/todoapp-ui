@@ -46,6 +46,10 @@ export const toggleTodo = (id) => (dispatch) => {
 }
 
 export const createTodo = (groupId, title) => (dispatch) => {
+  if (!/\S/.test(title)) {
+    return Promise.resolve()
+  }
+
   dispatch({
     type: 'TODOS_CREATE_REQUEST',
     groupId,

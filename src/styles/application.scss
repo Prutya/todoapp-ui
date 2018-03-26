@@ -29,6 +29,8 @@ ul {
     transition:         $transition;
 }
 
+$add-todo-height: 58px;
+
 .todoapp-root {
   width: 100vw;
   height: 100vh;
@@ -44,6 +46,7 @@ ul {
 }
 
 .group-list {
+  padding-top: $add-todo-height;
   width: 20%;
   height: 100%;
   float: left;
@@ -75,7 +78,7 @@ ul {
 
 .todo-list {
   width: 80%;
-  height: calc(100% - 58px);
+  height: calc(100% - #{$add-todo-height});
   float: left;
   background-color: #fff;
 
@@ -95,7 +98,7 @@ ul {
 
 .add-todo {
   width: 80%;
-  height: 58px;
+  height: $add-todo-height;
   float: left;
   background-color: #fff;
   padding: 10px;
@@ -103,6 +106,7 @@ ul {
 
   &__input {
     outline: none;
+    border: 3px solid #eee;
     font-size: inherit;
     font-weight: inherit;
     float: left;
@@ -125,11 +129,7 @@ ul {
     @include transition(background-color 200ms ease-out);
 
     &:hover {
-      background-color: #c35813;
-    }
-
-    &:active {
-      background-color: #b35213;
+      background-color: #e67428;
     }
   }
 }
@@ -145,8 +145,8 @@ ul {
 }
 
 .spinner-cube-grid .spinner-cube {
-  width: 33%;
-  height: 33%;
+  width: 33.3333%;
+  height: 33.3333%;
   background-color: #d35400;
   float: left;
   -webkit-animation: spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
