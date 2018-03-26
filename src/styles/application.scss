@@ -1,3 +1,15 @@
+$add-todo-height: 58px;
+$color-text: #576366;
+$color-text-light: lighten($color-text, 40%);
+$color-text-alt: #fff;
+$color-main: #d35400;
+$color-main-light-1: lighten($color-main, 7.5%);
+$color-main-light-2: lighten($color-main, 15%);
+$color-sub-1: #edf4f5;
+$color-sub-1-dark-1: darken($color-sub-1, 7.5%);
+$color-sub-2: #fff;
+$color-sub-2-trans: rgba($color-sub-2, 0.5);
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,7 +19,7 @@
 body {
   font-family: sans-serif;
   font-weight: 200;
-  color: #576366;
+  color: $color-text;
 }
 
 ul {
@@ -29,12 +41,10 @@ ul {
     transition:         $transition;
 }
 
-$add-todo-height: 58px;
-
 .todoapp-root {
   width: 100vw;
   height: 100vh;
-  background-color: #edf4f5;
+  background-color: $color-sub-1;
 }
 
 .todoapp {
@@ -62,17 +72,17 @@ $add-todo-height: 58px;
   @include transition(background-color 200ms ease-out);
 
   &--active {
-    background-color: #fff;
+    background-color: $color-sub-2;
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.50);
+    background-color: $color-sub-2-trans;
   }
 }
 
 .group.group--active {
   &:hover {
-    background-color: #fff;
+    background-color: $color-sub-2;
   }
 }
 
@@ -80,7 +90,7 @@ $add-todo-height: 58px;
   width: 80%;
   height: calc(100% - #{$add-todo-height});
   float: left;
-  background-color: #fff;
+  background-color: $color-sub-2;
 
   .spinner-cube-grid {
     margin-top: 120px;
@@ -100,27 +110,32 @@ $add-todo-height: 58px;
   width: 80%;
   height: $add-todo-height;
   float: left;
-  background-color: #fff;
+  background-color: $color-sub-2;
   padding: 10px;
   @include clearfix;
 
   &__input {
     outline: none;
-    border: 3px solid #eee;
+    border: 3px solid $color-sub-1;
     font-size: inherit;
     font-weight: inherit;
     float: left;
     height: 100%;
     width: calc(100% - 100px);
     padding: 16px 10px;
+    @include transition(border-color 200ms ease-out);
+
+    &:focus {
+      border-color: $color-sub-1-dark-1;
+    }
   }
 
   &__btn {
     outline: none;
     border: none;
     cursor: pointer;
-    color: #fff;
-    background-color: #d35400;
+    color: $color-text-alt;
+    background-color: $color-main;
     font-size: inherit;
     font-weight: inherit;
     float: left;
@@ -129,7 +144,11 @@ $add-todo-height: 58px;
     @include transition(background-color 200ms ease-out);
 
     &:hover {
-      background-color: #e67428;
+      background-color: $color-main-light-1;
+    }
+
+    &:active {
+      background-color: $color-main-light-2;
     }
   }
 }
@@ -147,7 +166,7 @@ $add-todo-height: 58px;
 .spinner-cube-grid .spinner-cube {
   width: 33.3333%;
   height: 33.3333%;
-  background-color: #d35400;
+  background-color: $color-main;
   float: left;
   -webkit-animation: spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
   animation: spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
