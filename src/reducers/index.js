@@ -56,7 +56,7 @@ const todosById = (state = {}, action) => {
 
 const currentGroupId = (state = null, action) => {
   switch (action.type) {
-    case 'TODOS_FETCH_SUCCESS':
+    case 'TODOS_FETCH_REQUEST':
       return action.groupId
     default:
       return state
