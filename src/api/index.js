@@ -11,20 +11,26 @@ const defaultArgs = {
 
 export const fetchGroups = () => (
   axios.get(groupsEndpoint, defaultArgs)
-    .then(response => response.data.todoGroups)
+    // .then(
+    //   response => response.data.todoGroups,
+    //   error => error
+    // )
 )
 
 export const fetchTodos = (groupId) => (
   axios.get(`${groupsEndpoint}/${groupId}/todos`, defaultArgs)
-    .then(response => response.data.todos)
+    // .then(
+    //   response => response.data.todos,
+    //   error => error
+    // )
 )
 
 export const createTodo = (groupId, title) => (
   axios.post(`${groupsEndpoint}/${groupId}/todos`, { title }, defaultArgs)
-    .then(response => response.data.todo)
+    // .then(response => response.data.todo)
 )
 
 export const toggleTodo = (id) => (
   axios.patch(`${todosEndpoint}/${id}`, {}, defaultArgs)
-    .then(response => response.data.todo)
+    // .then(response => response.data.todo)
 )

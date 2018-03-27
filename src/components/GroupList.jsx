@@ -2,8 +2,16 @@ import React from 'react'
 import Group from './Group'
 import Spinner from './Spinner'
 import NoEntriesMessage from './NoEntriesMessage'
+import ErrorMessage from './ErrorMessage'
 
-const GroupList = ({ groups, onGroupClick, isFetching, currentGroupId }) => {
+const GroupList = ({
+  groups,
+  onGroupClick,
+  onErrorClick,
+  errorMessage,
+  isFetching,
+  currentGroupId
+}) => {
   const wrapGutter = (gutter) => (
     <ul className='group-list'>
       <Spinner active={isFetching}/>
@@ -13,6 +21,15 @@ const GroupList = ({ groups, onGroupClick, isFetching, currentGroupId }) => {
 
   if (isFetching) {
     return wrapGutter(null)
+  }
+
+  if (!!errorMessage) {
+    return wrapGutter(
+      <ErrorMessage
+        onBtnClick={() => onErrorClick()}
+        text={errorMessage}
+      />
+    )
   }
 
   if (!groups.length) {

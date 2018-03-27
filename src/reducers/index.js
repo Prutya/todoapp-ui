@@ -87,11 +87,37 @@ const isFetchingTodos = (state = false, action) => {
   }
 }
 
+const groupsErrorMessage = (state = null, action) => {
+  switch (action.type) {
+    case 'GROUPS_FETCH_REQUEST':
+    case 'GROUPS_FETCH_SUCCESS':
+      return null
+    case 'GROUPS_FETCH_ERROR':
+      return action.message
+    default:
+      return state
+  }
+}
+
+const todosErrorMessage = (state = null, action) => {
+  switch (action.type) {
+    case 'TODOS_FETCH_REQUEST':
+    case 'TODOS_FETCH_SUCCESS':
+      return null
+    case 'TODOS_FETCH_ERROR':
+      return action.message
+    default:
+      return state
+  }
+}
+
 export const todoApp = combineReducers({
   groupIds,
   groupsById,
   todosById,
   isFetchingGroups,
   isFetchingTodos,
-  currentGroupId
+  currentGroupId,
+  groupsErrorMessage,
+  todosErrorMessage
 })

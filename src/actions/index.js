@@ -7,20 +7,28 @@ export const fetchGroups = () => (dispatch) => {
     type: 'GROUPS_FETCH_REQUEST'
   })
 
-  return api.fetchGroups()
-    .then(response => {
-      const normalizedResponse = normalize(response, schema.groups)
+  return api.fetchGroups().then(
+    response => {
+      const normalizedResponse = normalize(response.data.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
 
       dispatch({
         type: 'GROUPS_FETCH_SUCCESS',
-        response: normalize(response, schema.groups)
+        response: normalizedResponse
       })
 
       if (!!lastGroupId) {
         fetchTodos(lastGroupId)(dispatch)
       }
-    })
+    },
+
+    error => {
+      dispatch({
+        type: 'GROUPS_FETCH_ERROR',
+        message: error.message
+      })
+    }
+  )
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {
@@ -29,13 +37,22 @@ export const fetchTodos = (groupId) => (dispatch) => {
     groupId
   })
 
-  return api.fetchTodos(groupId).then(response => {
-    dispatch({
-      type: 'TODOS_FETCH_SUCCESS',
-      groupId,
-      response: normalize(response, schema.todos)
-    })
-  })
+  return api.fetchTodos(groupId).then(
+    response => {
+      dispatch({
+        type: 'TODOS_FETCH_SUCCESS',
+        groupId,
+        response: normalize(response.data.todos, schema.todos)
+      })
+    },
+
+    error => {
+      dispatch({
+        type: 'TODOS_FETCH_ERROR',
+        message: error.message
+      })
+    }
+  )
 }
 
 export const toggleTodo = (id) => (dispatch) => {
@@ -44,13 +61,23 @@ export const toggleTodo = (id) => (dispatch) => {
     id
   })
 
-  return api.toggleTodo(id).then(response => {
-    dispatch({
-      type: 'TODOS_TOGGLE_SUCCESS',
-      id,
-      response: normalize(response, schema.todo)
-    })
-  })
+  return api.toggleTodo(id).then(
+    response => {
+      dispatch({
+        type: 'TODOS_TOGGLE_SUCCESS',
+        id,
+        response: normalize(response.data.todo, schema.todo)
+      })
+    },
+
+    error => {
+      dispatch({
+        type: 'TODOS_TOGGLE_ERROR',
+        id,
+        message: error.message
+      })
+    }
+  )
 }
 
 export const createTodo = (groupId, title) => (dispatch) => {
@@ -64,11 +91,21 @@ export const createTodo = (groupId, title) => (dispatch) => {
     title
   })
 
-  return api.createTodo(groupId, title).then(response => {
-    dispatch({
-      type: 'TODOS_CREATE_SUCCESS',
-      groupId,
-      response: normalize(response, schema.todo),
-    })
-  })
+  return api.createTodo(groupId, title).then(
+    response => {
+      dispatch({
+        type: 'TODOS_CREATE_SUCCESS',
+        groupId,
+        response: normalize(response.data.todo, schema.todo),
+      })
+    },
+
+    error => {
+      dispatch({
+        type: 'TODOS_CREATE_ERROR',
+        groupId,
+        message: error.message
+      })
+    }
+  )
 }

@@ -16,12 +16,15 @@ class TodoApp extends React.Component {
     const {
       groups,
       todos,
+      fetchGroups,
       fetchTodos,
       isFetchingGroups,
       isFetchingTodos,
       toggleTodo,
       createTodo,
-      currentGroupId
+      currentGroupId,
+      groupsErrorMessage,
+      todosErrorMessage
     } = this.props
 
     return (
@@ -29,6 +32,8 @@ class TodoApp extends React.Component {
         <GroupList
           groups={groups}
           onGroupClick={fetchTodos}
+          onErrorClick={fetchGroups}
+          errorMessage={groupsErrorMessage}
           currentGroupId={currentGroupId}
           isFetching={isFetchingGroups}
         />
@@ -41,6 +46,8 @@ class TodoApp extends React.Component {
         <TodoList
           todos={todos}
           onTodoClick={toggleTodo}
+          onErrorClick={() => fetchTodos(currentGroupId)}
+          errorMessage={todosErrorMessage}
           isFetching={isFetchingTodos}
         />
       </div>
@@ -50,11 +57,9 @@ class TodoApp extends React.Component {
 
 TodoApp = connect(
   (state) => ({
+    ...state,
     groups: state.groupIds.map(id => state.groupsById[id]),
-    todos: ((state.groupsById[state.currentGroupId] || {}).todoIds || []).map(id => state.todosById[id]),
-    isFetchingGroups: state.isFetchingGroups,
-    isFetchingTodos: state.isFetchingTodos,
-    currentGroupId: state.currentGroupId
+    todos: ((state.groupsById[state.currentGroupId] || {}).todoIds || []).map(id => state.todosById[id])
   }),
   actions
 )(TodoApp)
