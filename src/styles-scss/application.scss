@@ -2,7 +2,7 @@ $add-todo-height: 58px;
 $color-text: #576366;
 $color-text-light: lighten($color-text, 40%);
 $color-text-alt: #fff;
-$color-main: #e26411;
+$color-main: tomato;
 $color-main-light-1: lighten($color-main, 7.5%);
 $color-main-light-2: lighten($color-main, 15%);
 $color-sub-1: #edf4f5;
@@ -76,30 +76,6 @@ ul {
   }
 }
 
-.group {
-  padding: 20px;
-  cursor: pointer;
-  border-left: 0 solid transparent;
-  background-color: transparent;
-  @include transition(
-    background-color 200ms ease-in-out,
-    border-left-width 200ms ease-in-out
-  );
-
-  &:hover {
-    background-color: $color-sub-2-trans;
-  }
-
-  &--active {
-    background-color: $color-sub-2;
-    border-left: 5px solid $color-main;
-
-    &:hover {
-      background-color: $color-sub-2;
-    }
-  }
-}
-
 .todo-list {
   width: 80%;
   height: calc(100% - #{$add-todo-height});
@@ -109,15 +85,6 @@ ul {
 
   .spinner-cube-grid {
     margin-top: 120px;
-  }
-}
-
-.todo {
-  padding: 20px;
-  cursor: pointer;
-
-  &--completed {
-    text-decoration: line-through;
   }
 }
 

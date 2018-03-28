@@ -35,9 +35,11 @@ const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }
     todos.map(todo =>
       <Todo
         key={todo.id}
-        {...todo}
+        completed={todo.completed}
         onClick={() => onTodoClick(todo.id)}
-      />
+      >
+        {todo.title}
+      </Todo>
     )
   )
 }

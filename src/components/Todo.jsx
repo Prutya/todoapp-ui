@@ -1,13 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Todo = ({ onClick, completed, title }) => {
-  const className = completed ? 'todo todo--completed' : 'todo'
-
-  return (
-    <li onClick={onClick} className={className}>
-      {title}
-    </li>
-  )
-}
+const Todo = styled.li`
+  padding: 20px;
+  cursor: pointer;
+  text-decoration: ${props => props.completed ? 'line-through' : 'none'}
+`
 
 export default Todo

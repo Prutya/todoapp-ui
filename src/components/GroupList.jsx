@@ -43,9 +43,10 @@ const GroupList = ({
       <Group
         key={group.id}
         active={group.id === currentGroupId}
-        {...group}
         onClick={() => onGroupClick(group.id)}
-      />
+      >
+        {group.title}
+      </Group>
     )
   )
 }
