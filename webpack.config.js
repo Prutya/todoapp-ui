@@ -62,9 +62,10 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.unshift(
+    // NOTE: Can't use dotenv on Heroku
     new webpack.EnvironmentPlugin([
       'NODE_ENV',
-      'TODOAPP_API_HOST'
+      'TODOAPP_HOST_API'
     ])
   )
 } else {
