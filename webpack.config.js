@@ -52,6 +52,7 @@ const config = {
   },
 
   plugins: [
+    new Dotenv({ systemvars: true }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -60,21 +61,7 @@ const config = {
   ]
 };
 
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.unshift(
-    // NOTE: Can't use dotenv on Heroku
-    new webpack.EnvironmentPlugin([
-      'NODE_ENV',
-      'TODOAPP_HOST_API'
-    ])
-  )
-} else {
-  config.plugins.unshift(
-    new Dotenv({
-      systemvars: true
-    })
-  )
-
+if (!(process.env.NODE_ENV === 'production')) {
   config.devtool = 'eval-source-map';
   config.devServer = {
     contentBase: path.resolve(__dirname, './build'),

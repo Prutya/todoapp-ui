@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server --inline --hot --mode development",
-    "build": "webpack --mode production"
+    "prebuild": "bin/showenv > .env",
+    "build": "npm run prebuild && webpack --mode production"
   },
   "license": "ISC",
   "repository": {
