@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
-console.log(`NODE_ENV=${process.env.NODE_ENV}`)
-console.log(`TODOAPP_HOST_API=${process.env.TODOAPP_HOST_API}`)
-console.log(`NPM_CONFIG_PRODUCTION=${process.env.NPM_CONFIG_PRODUCTION}`)
+const envVars = [
+  'NODE_ENV',
+  'TODOAPP_HOST_API',
+  'NPM_CONFIG_PRODUCTION'
+]
+
+envVars.forEach(function(item) {
+  console.log(`${item}=${process.env[item]}`)
+})
