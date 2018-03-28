@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const groupsEndpoint = `${__API__}/api/v1/todo_groups`
-const todosEndpoint = `${__API__}/api/v1/todos`
+const groupsEndpoint = `${process.env.TODOAPP_HOST_API}/api/v1/todo_groups`
+const todosEndpoint = `${process.env.TODOAPP_HOST_API}/api/v1/todos`
 
 const defaultArgs = {
   headers: {
@@ -11,26 +11,16 @@ const defaultArgs = {
 
 export const fetchGroups = () => (
   axios.get(groupsEndpoint, defaultArgs)
-    // .then(
-    //   response => response.data.todoGroups,
-    //   error => error
-    // )
 )
 
 export const fetchTodos = (groupId) => (
   axios.get(`${groupsEndpoint}/${groupId}/todos`, defaultArgs)
-    // .then(
-    //   response => response.data.todos,
-    //   error => error
-    // )
 )
 
 export const createTodo = (groupId, title) => (
   axios.post(`${groupsEndpoint}/${groupId}/todos`, { title }, defaultArgs)
-    // .then(response => response.data.todo)
 )
 
 export const toggleTodo = (id) => (
   axios.patch(`${todosEndpoint}/${id}`, {}, defaultArgs)
-    // .then(response => response.data.todo)
 )

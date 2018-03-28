@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
-const isProduction = process.env.NODE_ENV == 'production';
 const config = {
   output: {
     filename: '[name].[hash].js',
@@ -26,7 +26,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              minimize: isProduction
+              minimize: process.env.NODE_ENV === 'production'
             }
           },
           {
@@ -52,6 +52,7 @@ const config = {
   },
 
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -60,15 +61,7 @@ const config = {
   ]
 };
 
-var apiHost = isProduction ?
-  "'https://todoapp-api-rails.herokuapp.com'" :
-  "'http://localhost:3000'";
-
-config.plugins.push(new webpack.DefinePlugin({
-  __API__: apiHost
-}));
-
-if (!isProduction) {
+if (!(process.env.NODE_ENV === 'production')) {
   config.devtool = 'eval-source-map';
   config.devServer = {
     contentBase: path.resolve(__dirname, './build'),
