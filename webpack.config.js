@@ -52,9 +52,6 @@ const config = {
   },
 
   plugins: [
-    new Dotenv({
-      systemvars: true
-    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -63,7 +60,20 @@ const config = {
   ]
 };
 
-if (!(process.env.NODE_ENV === 'production')) {
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.unshift(
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'TODOAPP_API_HOST'
+    ])
+  )
+} else {
+  config.plugins.unshift(
+    new Dotenv({
+      systemvars: true
+    })
+  )
+
   config.devtool = 'eval-source-map';
   config.devServer = {
     contentBase: path.resolve(__dirname, './build'),
