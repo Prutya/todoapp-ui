@@ -53,7 +53,7 @@ const config = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/templates/index.html'),
+      template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
       inject: 'body'
     })

@@ -76,30 +76,6 @@ ul {
   }
 }
 
-.group {
-  padding: 20px;
-  cursor: pointer;
-  border-left: 0 solid transparent;
-  background-color: transparent;
-  @include transition(
-    background-color 200ms ease-in-out,
-    border-left-width 200ms ease-in-out
-  );
-
-  &:hover {
-    background-color: $color-sub-2-trans;
-  }
-
-  &--active {
-    background-color: $color-sub-2;
-    border-left: 5px solid $color-main;
-
-    &:hover {
-      background-color: $color-sub-2;
-    }
-  }
-}
-
 .todo-list {
   width: 80%;
   height: calc(100% - #{$add-todo-height});

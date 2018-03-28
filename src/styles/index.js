@@ -1,1 +1,1 @@
-export * from './application.scss'
+export * from './colors'
