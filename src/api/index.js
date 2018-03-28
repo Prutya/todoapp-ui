@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiHost = process.env.TODOAPP_HOST_API
+const apiHost = process.env.REACT_APP_HOST_API
 const groupsEndpoint = `${apiHost}/api/v1/todo_groups`
 const todosEndpoint = `${apiHost}/api/v1/todos`
 
