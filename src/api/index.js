@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-const groupsEndpoint = `${process.env.TODOAPP_HOST_API}/api/v1/todo_groups`
-const todosEndpoint = `${process.env.TODOAPP_HOST_API}/api/v1/todos`
+const apiHost = process.env.TODOAPP_HOST_API
+const groupsEndpoint = `${apiHost}/api/v1/todo_groups`
+const todosEndpoint = `${apiHost}/api/v1/todos`
 
 const defaultArgs = {
   headers: {
