@@ -1,7 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+
+function readFromEnv(key) {
+  return "\"" + process.env[key] + "\""
+}
 
 const config = {
   output: {
@@ -26,7 +29,7 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              minimize: process.env.NODE_ENV === 'production'
+              minimize: true
             }
           },
           {
@@ -52,7 +55,11 @@ const config = {
   },
 
   plugins: [
-    new Dotenv(),
+    // NOTE: Since we can't use dotenv on Heroku
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': readFromEnv('NODE_ENV'),
+      'process.env.TODOAPP_HOST_API': readFromEnv('TODOAPP_HOST_API')
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -60,14 +67,5 @@ const config = {
     })
   ]
 };
-
-if (!(process.env.NODE_ENV === 'production')) {
-  config.devtool = 'eval-source-map';
-  config.devServer = {
-    contentBase: path.resolve(__dirname, './build'),
-    port: 4000,
-    historyApiFallback: true
-  };
-}
 
 module.exports = config;
