@@ -18,7 +18,7 @@ const groupsById = (state = {}, action) => {
         ...state,
         [action.groupId]: {
           ...state[action.groupId],
-          ['todoIds']: action.response.result
+          todoIds: action.response.result
         }
       }
     case 'TODOS_CREATE_SUCCESS':
@@ -26,7 +26,7 @@ const groupsById = (state = {}, action) => {
         ...state,
         [action.groupId]: {
           ...state[action.groupId],
-          ['todoIds']: [
+          todoIds: [
             action.response.result,
             ...state[action.groupId].todoIds
           ]
