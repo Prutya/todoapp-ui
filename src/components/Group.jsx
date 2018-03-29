@@ -10,7 +10,8 @@ const Group = styled.li`
   cursor: pointer;
   padding: 20px;
   transition: background-color 200ms ease-in-out,
-              border-left-width 200ms ease-in-out;
+              border-left-width 200ms ease-in-out,
+              border-left-color 200ms ease-in-out;
 
   &:hover {
     background-color: ${props => props.active ? colors.sub2 : colors.sub2Trans};

@@ -4,6 +4,7 @@ import GroupList from './GroupList'
 import TodoList from './TodoList'
 import AddTodo from './AddTodo'
 import * as actions from '../actions'
+import * as selectors from '../selectors'
 
 class TodoApp extends React.Component {
   componentDidMount() {
@@ -15,40 +16,40 @@ class TodoApp extends React.Component {
   render() {
     const {
       groups,
+      allGroups,
       todos,
       fetchGroups,
       fetchTodos,
-      isFetchingGroups,
-      isFetchingTodos,
       toggleTodo,
       createTodo,
-      currentGroupId,
-      groupsErrorMessage,
-      todosErrorMessage
+      selectGroup
     } = this.props
+
+    const allTodos = todos.ids.map(id => todos.byId[id])
+    const visibleTodos = allTodos.filter(todo => todo.todoGroupId === groups.idCurrent)
 
     return (
       <div className="todoapp">
         <GroupList
-          groups={groups}
-          onGroupClick={fetchTodos}
+          groups={allGroups}
+          errorMessage={groups.errorMessage}
+          currentGroupId={groups.idCurrent}
+          isFetching={groups.isFetching}
+          onGroupClick={selectGroup}
           onErrorClick={fetchGroups}
-          errorMessage={groupsErrorMessage}
-          currentGroupId={currentGroupId}
-          isFetching={isFetchingGroups}
         />
 
         <AddTodo
-          groupId={currentGroupId}
+          groupId={groups.idCurrent}
           onAddClick={createTodo}
         />
 
         <TodoList
-          todos={todos}
+          todos={visibleTodos}
           onTodoClick={toggleTodo}
-          onErrorClick={() => fetchTodos(currentGroupId)}
-          errorMessage={todosErrorMessage}
-          isFetching={isFetchingTodos}
+          onErrorClick={() => fetchTodos(groups.idCurrent)}
+          errorMessage={todos.errorMessage}
+          isFetching={todos.isFetching}
         />
       </div>
     )
@@ -56,10 +57,9 @@ class TodoApp extends React.Component {
 }
 
 TodoApp = connect(
-  (state) => ({
+  state => ({
     ...state,
-    groups: state.groupIds.map(id => state.groupsById[id]),
-    todos: ((state.groupsById[state.currentGroupId] || {}).todoIds || []).map(id => state.todosById[id])
+    allGroups: selectors.allGroups(state)
   }),
   actions
 )(TodoApp)
