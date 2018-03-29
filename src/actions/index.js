@@ -9,7 +9,7 @@ export const fetchGroups = () => (dispatch) => {
 
   return api.fetchGroups().then(
     response => {
-      const normalizedResponse = normalize(response.data.todoGroups, schema.groups)
+      const normalizedResponse = normalize(response.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
 
       dispatch({
@@ -42,7 +42,7 @@ export const fetchTodos = (groupId) => (dispatch) => {
       dispatch({
         type: 'TODOS_FETCH_SUCCESS',
         groupId,
-        response: normalize(response.data.todos, schema.todos)
+        response: normalize(response.todos, schema.todos)
       })
     },
 
@@ -66,7 +66,7 @@ export const toggleTodo = (id) => (dispatch) => {
       dispatch({
         type: 'TODOS_TOGGLE_SUCCESS',
         id,
-        response: normalize(response.data.todo, schema.todo)
+        response: normalize(response.todo, schema.todo)
       })
     },
 
@@ -96,7 +96,7 @@ export const createTodo = (groupId, title) => (dispatch) => {
       dispatch({
         type: 'TODOS_CREATE_SUCCESS',
         groupId,
-        response: normalize(response.data.todo, schema.todo),
+        response: normalize(response.todo, schema.todo),
       })
     },
 
