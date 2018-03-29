@@ -11,8 +11,8 @@ const ids = (state = [], action) => {
       ]
     case 'TODOS_CREATE_SUCCESS':
       return [
+        action.response.result,
         ...state,
-        action.response.result
       ]
     default:
       return state
