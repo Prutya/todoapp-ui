@@ -18,6 +18,7 @@ export const fetchGroups = () => (dispatch) => {
       })
 
       if (!!lastGroupId) {
+        selectGroup(lastGroupId)(dispatch)
         fetchTodos(lastGroupId)(dispatch)
       }
     },
@@ -29,6 +30,13 @@ export const fetchGroups = () => (dispatch) => {
       })
     }
   )
+}
+
+export const selectGroup = (id) => (dispatch) => {
+  dispatch({
+    type: 'GROUPS_SELECT',
+    id
+  })
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {

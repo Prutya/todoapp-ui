@@ -18,37 +18,40 @@ class TodoApp extends React.Component {
       todos,
       fetchGroups,
       fetchTodos,
-      isFetchingGroups,
-      isFetchingTodos,
       toggleTodo,
       createTodo,
-      currentGroupId,
-      groupsErrorMessage,
-      todosErrorMessage
+      selectGroup
     } = this.props
+
+    const allGroups = groups.ids.map(id => groups.byId[id])
+    const allTodos = todos.ids.map(id => todos.byId[id])
+    const visibleTodos = allTodos.filter(todo => todo.todoGroupId === groups.idCurrent)
 
     return (
       <div className="todoapp">
         <GroupList
-          groups={groups}
-          onGroupClick={fetchTodos}
+          groups={allGroups}
+          onGroupClick={(id) => {
+            selectGroup(id)
+            fetchTodos(id)
+          }}
           onErrorClick={fetchGroups}
-          errorMessage={groupsErrorMessage}
-          currentGroupId={currentGroupId}
-          isFetching={isFetchingGroups}
+          errorMessage={groups.errorMessage}
+          currentGroupId={groups.idCurrent}
+          isFetching={groups.isFetching}
         />
 
         <AddTodo
-          groupId={currentGroupId}
+          groupId={groups.idCurrent}
           onAddClick={createTodo}
         />
 
         <TodoList
-          todos={todos}
+          todos={visibleTodos}
           onTodoClick={toggleTodo}
-          onErrorClick={() => fetchTodos(currentGroupId)}
-          errorMessage={todosErrorMessage}
-          isFetching={isFetchingTodos}
+          onErrorClick={() => fetchTodos(groups.idCurrent)}
+          errorMessage={todos.errorMessage}
+          isFetching={todos.isFetching}
         />
       </div>
     )
@@ -56,11 +59,7 @@ class TodoApp extends React.Component {
 }
 
 TodoApp = connect(
-  (state) => ({
-    ...state,
-    groups: state.groupIds.map(id => state.groupsById[id]),
-    todos: ((state.groupsById[state.currentGroupId] || {}).todoIds || []).map(id => state.todosById[id])
-  }),
+  state => ({ ...state }),
   actions
 )(TodoApp)
 
