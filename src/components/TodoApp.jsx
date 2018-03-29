@@ -4,6 +4,7 @@ import GroupList from './GroupList'
 import TodoList from './TodoList'
 import AddTodo from './AddTodo'
 import * as actions from '../actions'
+import * as selectors from '../selectors'
 
 class TodoApp extends React.Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ class TodoApp extends React.Component {
   render() {
     const {
       groups,
+      allGroups,
       todos,
       fetchGroups,
       fetchTodos,
@@ -23,7 +25,6 @@ class TodoApp extends React.Component {
       selectGroup
     } = this.props
 
-    const allGroups = groups.ids.map(id => groups.byId[id])
     const allTodos = todos.ids.map(id => todos.byId[id])
     const visibleTodos = allTodos.filter(todo => todo.todoGroupId === groups.idCurrent)
 
@@ -31,14 +32,11 @@ class TodoApp extends React.Component {
       <div className="todoapp">
         <GroupList
           groups={allGroups}
-          onGroupClick={(id) => {
-            selectGroup(id)
-            fetchTodos(id)
-          }}
-          onErrorClick={fetchGroups}
           errorMessage={groups.errorMessage}
           currentGroupId={groups.idCurrent}
           isFetching={groups.isFetching}
+          onGroupClick={selectGroup}
+          onErrorClick={fetchGroups}
         />
 
         <AddTodo
@@ -59,7 +57,10 @@ class TodoApp extends React.Component {
 }
 
 TodoApp = connect(
-  state => ({ ...state }),
+  state => ({
+    ...state,
+    allGroups: selectors.allGroups(state)
+  }),
   actions
 )(TodoApp)
 

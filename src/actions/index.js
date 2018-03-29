@@ -37,6 +37,8 @@ export const selectGroup = (id) => (dispatch) => {
     type: 'GROUPS_SELECT',
     id
   })
+
+  return fetchTodos(id)
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {
