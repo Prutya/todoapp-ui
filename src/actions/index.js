@@ -7,7 +7,7 @@ export const fetchGroups = () => (dispatch) => {
     type: 'GROUPS_FETCH_REQUEST'
   })
 
-  return api.fetchGroups().then(
+  api.fetchGroups().then(
     response => {
       const normalizedResponse = normalize(response.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
@@ -19,7 +19,6 @@ export const fetchGroups = () => (dispatch) => {
 
       if (!!lastGroupId) {
         selectGroup(lastGroupId)(dispatch)
-        fetchTodos(lastGroupId)(dispatch)
       }
     },
 
@@ -38,7 +37,7 @@ export const selectGroup = (id) => (dispatch) => {
     id
   })
 
-  return fetchTodos(id)
+  fetchTodos(id)(dispatch)
 }
 
 export const fetchTodos = (groupId) => (dispatch) => {
@@ -47,7 +46,7 @@ export const fetchTodos = (groupId) => (dispatch) => {
     groupId
   })
 
-  return api.fetchTodos(groupId).then(
+  api.fetchTodos(groupId).then(
     response => {
       dispatch({
         type: 'TODOS_FETCH_SUCCESS',
@@ -71,7 +70,7 @@ export const toggleTodo = (id) => (dispatch) => {
     id
   })
 
-  return api.toggleTodo(id).then(
+  api.toggleTodo(id).then(
     response => {
       dispatch({
         type: 'TODOS_TOGGLE_SUCCESS',
@@ -101,7 +100,7 @@ export const createTodo = (groupId, title) => (dispatch) => {
     title
   })
 
-  return api.createTodo(groupId, title).then(
+  api.createTodo(groupId, title).then(
     response => {
       dispatch({
         type: 'TODOS_CREATE_SUCCESS',
