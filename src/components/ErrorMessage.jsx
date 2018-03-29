@@ -6,7 +6,7 @@ const ErrorMessage = ({ text, onBtnClick }) => {
   return (
     <div className='error-message'>
       <span className='error-message__text'>
-        {`There was an error. ${message}`}
+        {`${message}.`}
       </span>
       <button
         onClick={ () => onBtnClick() }
