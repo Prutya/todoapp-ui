@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button'
 
 const ErrorMessage = ({ text, onBtnClick }) => {
   const message = text || 'Something went wrong.'
@@ -8,12 +9,9 @@ const ErrorMessage = ({ text, onBtnClick }) => {
       <span className='error-message__text'>
         {`${message}.`}
       </span>
-      <button
-        onClick={ () => onBtnClick() }
-        className='error-message__btn'
-      >
+      <Button onClick={onBtnClick}>
         Retry
-      </button>
+      </Button>
     </div>
   )
 }

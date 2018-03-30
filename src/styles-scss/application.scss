@@ -104,34 +104,12 @@ ul {
     font-weight: inherit;
     float: left;
     height: 100%;
-    width: calc(100% - 100px);
+    width: 80%;
     padding: 16px 10px;
     @include transition(border-color 200ms ease-out);
 
     &:focus {
       border-color: $color-sub-1-dark-1;
-    }
-  }
-
-  &__btn {
-    outline: none;
-    border: none;
-    cursor: pointer;
-    color: $color-text-alt;
-    background-color: $color-main;
-    font-size: inherit;
-    font-weight: inherit;
-    float: left;
-    height: 100%;
-    width: 100px;
-    @include transition(background-color 200ms ease-out);
-
-    &:hover {
-      background-color: $color-main-light-1;
-    }
-
-    &:active {
-      background-color: $color-main-light-2;
     }
   }
 }
@@ -145,12 +123,5 @@ ul {
 
   &__text {
     margin-right: 10px;
-  }
-
-  &__btn {
-    @extend .add-todo__btn;
-    height: 30px;
-    display: inline-block;
-    float: none;
   }
 }
