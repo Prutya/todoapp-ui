@@ -154,19 +154,3 @@ ul {
     float: none;
   }
 }
-
-.spinner-wrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 1.00;
-  background-color: $color-sub-2-trans;
-  @include transition(opacity 200ms ease-in-out);
-
-  &--hidden {
-    opacity: 0.00;
-    pointer-events: none;
-  }
-}
