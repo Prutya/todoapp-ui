@@ -1,6 +1,6 @@
 import React from 'react'
 import Group from './Group'
-import Spinner from './Spinner'
+import SpinnerWrapper from './SpinnerWrapper'
 import NoEntriesMessage from './NoEntriesMessage'
 import ErrorMessage from './ErrorMessage'
 
@@ -14,7 +14,7 @@ const GroupList = ({
 }) => {
   const wrapGutter = (gutter) => (
     <ul className='group-list'>
-      <Spinner active={isFetching}/>
+      <SpinnerWrapper active={isFetching} paddingTop="120px"/>
       {gutter}
     </ul>
   )

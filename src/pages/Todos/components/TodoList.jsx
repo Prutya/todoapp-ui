@@ -1,13 +1,13 @@
 import React from 'react'
 import Todo from './Todo'
-import Spinner from './Spinner'
+import SpinnerWrapper from './SpinnerWrapper'
 import NoEntriesMessage from './NoEntriesMessage'
 import ErrorMessage from './ErrorMessage'
 
 const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }) => {
   const wrapGutter = (gutter) => (
     <ul className='todo-list'>
-      <Spinner active={isFetching}/>
+      <SpinnerWrapper active={isFetching} paddingTop="120px"/>
       {gutter}
     </ul>
   )
