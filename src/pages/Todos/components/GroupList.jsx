@@ -1,8 +1,7 @@
 import React from 'react'
 import Group from './Group'
 import SpinnerWrapper from './SpinnerWrapper'
-import NoEntriesMessage from './NoEntriesMessage'
-import ErrorMessage from './ErrorMessage'
+import { ErrorMessage, NoDataMessage } from './Message'
 
 const GroupList = ({
   groups,
@@ -34,7 +33,7 @@ const GroupList = ({
 
   if (!groups.length) {
     return wrapGutter(
-      <NoEntriesMessage/>
+      <NoDataMessage/>
     )
   }
 

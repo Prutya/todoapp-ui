@@ -1,8 +1,7 @@
 import React from 'react'
 import Todo from './Todo'
 import SpinnerWrapper from './SpinnerWrapper'
-import NoEntriesMessage from './NoEntriesMessage'
-import ErrorMessage from './ErrorMessage'
+import { ErrorMessage, NoDataMessage } from './Message'
 
 const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }) => {
   const wrapGutter = (gutter) => (
@@ -27,7 +26,7 @@ const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }
 
   if (!todos.length) {
     return wrapGutter(
-      <NoEntriesMessage/>
+      <NoDataMessage/>
     )
   }
 
