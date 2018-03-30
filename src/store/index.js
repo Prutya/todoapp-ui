@@ -1,3 +1,1 @@
-const exportFileName = process.env.NODE_ENV === 'production' ? 'prod' : 'dev'
-
-module.exports = require(`./configureStore.${exportFileName}`)
+module.exports = require(`./config.${process.env.NODE_ENV}`)
