@@ -82,6 +82,7 @@ ul {
   float: left;
   background-color: $color-sub-2;
   position: relative;
+  overflow-y: scroll;
 
   .spinner-cube-grid {
     margin-top: 120px;
