@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr'
-import * as api from '../api'
+import * as api from '../../../api'
 import * as schema from './schema'
 
 export const fetchGroups = () => (dispatch) => {

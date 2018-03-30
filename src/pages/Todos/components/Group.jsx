@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors } from '../styles'
+import { colors } from '../../../styles'
 
 const Group = styled.li`
   background-color: ${props => props.active ? colors.sub2 : 'transparent'};

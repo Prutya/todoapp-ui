@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import GroupList from './GroupList'
-import TodoList from './TodoList'
-import AddTodo from './AddTodo'
-import * as actions from '../actions'
-import * as selectors from '../selectors'
+import * as actions from './actions'
+import * as selectors from './selectors'
+import GroupList from './components/GroupList'
+import TodoList from './components/TodoList'
+import AddTodo from './components/AddTodo'
 
-class TodoApp extends React.Component {
+class Todos extends React.Component {
   componentDidMount() {
     const { fetchGroups } = this.props
 
@@ -56,12 +56,12 @@ class TodoApp extends React.Component {
   }
 }
 
-TodoApp = connect(
+Todos = connect(
   state => ({
-    ...state,
+    ...state.todos,
     allGroups: selectors.allGroups(state)
   }),
   actions
-)(TodoApp)
+)(Todos)
 
-export default TodoApp
+export default Todos

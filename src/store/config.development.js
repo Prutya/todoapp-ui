@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import todoApp from '../reducers'
+import reducer from '../reducer'
 
 const configureStore = () => {
   const middleware = [thunk]
 
   return createStore(
-    todoApp,
+    reducer,
     composeWithDevTools(
       applyMiddleware(...middleware)
     )

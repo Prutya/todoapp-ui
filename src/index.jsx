@@ -1,10 +1,13 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Root from './components/Root'
+import { Provider } from 'react-redux'
 import configureStore from './store'
 import styles from './styles-scss'
+import Todos from './pages/Todos'
 
 render(
-  <Root store={configureStore()} />,
+  <Provider store={configureStore()}>
+    <Todos />
+  </Provider>,
   document.getElementById('root')
 )
