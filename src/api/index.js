@@ -1,45 +1,52 @@
 const apiHost = process.env.REACT_APP_HOST_API
-const groupsEndpoint = `${apiHost}/api/v1/todo_groups`
-const todosEndpoint = `${apiHost}/api/v1/todos`
 
-const argsFetch = {
+const groupsEndpoint = `${apiHost}/api/v1/todo_groups`
+const todosEndpoint  = `${apiHost}/api/v1/todos`
+
+const optionsGet = {
   method: 'GET',
   headers: {
     'Accept': 'application/json'
   }
 }
 
-const argsSend = {
+const optionsPost = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   }
 }
 
+const optionsPatch = {
+  ...optionsPost,
+  method: 'PATCH'
+}
+
 export const fetchGroups = () => (
-  fetch(groupsEndpoint, argsFetch)
+  fetch(groupsEndpoint, optionsGet)
     .then(response => response.json())
 )
 
 export const fetchTodos = (groupId) => (
-  fetch(`${groupsEndpoint}/${groupId}/todos`, argsFetch)
+  fetch(`${groupsEndpoint}/${groupId}/todos`, optionsGet)
     .then(response => response.json())
 )
 
-export const createTodo = (groupId, title) => (
-  fetch(`${groupsEndpoint}/${groupId}/todos`, {
-    ...argsSend,
+export const createTodo = (groupId, title) => {
+  const options = {
+    ...optionsPost,
     body: JSON.stringify({
       todo: {
         title
       }
     })
-  }).then(response => response.json())
-)
+  }
+
+  return fetch(`${groupsEndpoint}/${groupId}/todos`, options)
+    .then(response => response.json())
+}
 
 export const toggleTodo = (id) => (
-  fetch(`${todosEndpoint}/${id}`, {
-    ...argsSend,
-    method: 'PATCH'
-  }).then(response => response.json())
+  fetch(`${todosEndpoint}/${id}`, optionsPatch)
+    .then(response => response.json())
 )
