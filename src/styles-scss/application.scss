@@ -1,14 +1,9 @@
 $add-todo-height: 58px;
 $color-text: #576366;
-$color-text-light: lighten($color-text, 40%);
-$color-text-alt: #fff;
-$color-main: tomato;
-$color-main-light-1: lighten($color-main, 7.5%);
-$color-main-light-2: lighten($color-main, 15%);
+$color-main-light-1: lighten(tomato, 7.5%);
 $color-sub-1: #edf4f5;
 $color-sub-1-dark-1: darken($color-sub-1, 7.5%);
 $color-sub-2: #fff;
-$color-sub-2-trans: rgba($color-sub-2, 0.5);
 
 * {
   box-sizing: border-box;

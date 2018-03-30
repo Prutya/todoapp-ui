@@ -9,7 +9,7 @@ const Group = styled.li`
   border-left-width: 0;
   cursor: pointer;
   padding: 20px;
-  transition: background-color 200ms ease-in-out,
+  transition: background-color  200ms ease-in-out,
               border-left-width 200ms ease-in-out,
               border-left-color 200ms ease-in-out;
 
