@@ -1,12 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { colors } from '../../../styles'
 
 const Group = styled.li`
-  background-color: ${props => props.active ? colors.sub2 : 'transparent'};
-  border-left-width: ${props => props.active ? '5px' : '0'};
+  background-color: transparent;
+  border-left-color: transparent;
   border-left-style: solid;
-  border-left-color: ${props => props.active ? colors.main : 'transparent'};
+  border-left-width: 0;
   cursor: pointer;
   padding: 20px;
   transition: background-color 200ms ease-in-out,
@@ -14,8 +14,18 @@ const Group = styled.li`
               border-left-color 200ms ease-in-out;
 
   &:hover {
-    background-color: ${props => props.active ? colors.sub2 : colors.sub2Trans};
+    background-color: ${colors.sub2Trans};
   }
+
+  ${props => props.active && css`
+    background-color: ${colors.sub2};
+    border-left-color: ${colors.main};
+    border-left-width: 5px;
+
+    &:hover {
+      background-color: ${colors.sub2};
+    }
+  `}
 `
 
 export default Group

@@ -1,6 +1,13 @@
+import { opacify } from 'polished'
+
+const main      = 'rgb(255, 99, 71)'
+const sub1      = 'rgb(236, 244, 245)'
+const sub2      = 'rgb(255, 255, 255)'
+const sub2Trans = opacify(0.70, sub2)
+
 export const colors = {
-  main:      'rgb(255, 99, 71, 1)',
-  sub1:      'rgba(236, 244, 245, 1)',
-  sub2:      'rgba(255, 255, 255, 1)',
-  sub2Trans: 'rgba(255, 255, 255, 0.7)'
+  main,
+  sub1,
+  sub2,
+  sub2Trans
 }

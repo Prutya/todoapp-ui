@@ -1,10 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Todo = styled.li`
   padding: 20px;
   cursor: pointer;
-  text-decoration: ${props => props.completed ? 'line-through' : 'none'}
+
+  ${props => props.completed && css`
+    text-decoration: line-through;
+  `}
 `
 
 export default Todo
