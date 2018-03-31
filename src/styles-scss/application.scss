@@ -29,13 +29,6 @@ ul {
   }
 }
 
-@mixin transition($transition...) {
-    -moz-transition:    $transition;
-    -o-transition:      $transition;
-    -webkit-transition: $transition;
-    transition:         $transition;
-}
-
 .github-link {
   color: $color-main-light-1;
   display: block;
@@ -65,10 +58,6 @@ ul {
   height: 100%;
   float: left;
   position: relative;
-
-  .spinner-cube-grid {
-    margin-top: 120px;
-  }
 }
 
 .todo-list {
@@ -78,33 +67,4 @@ ul {
   background-color: $color-sub-2;
   position: relative;
   overflow-y: scroll;
-
-  .spinner-cube-grid {
-    margin-top: 120px;
-  }
-}
-
-.add-todo {
-  width: 80%;
-  height: $add-todo-height;
-  float: left;
-  background-color: $color-sub-2;
-  padding: 10px;
-  @include clearfix;
-
-  &__input {
-    outline: none;
-    border: 3px solid $color-sub-1;
-    font-size: inherit;
-    font-weight: inherit;
-    float: left;
-    height: 100%;
-    width: 80%;
-    padding: 16px 10px;
-    @include transition(border-color 200ms ease-out);
-
-    &:focus {
-      border-color: $color-sub-1-dark-1;
-    }
-  }
 }

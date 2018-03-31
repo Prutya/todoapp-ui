@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 import GroupList from './components/GroupList'
 import TodoList from './components/TodoList'
-import AddTodo from './components/AddTodo'
+import TodoForm from './components/Todoform'
 
 class Todos extends React.Component {
   componentDidMount () {
@@ -40,7 +40,7 @@ class Todos extends React.Component {
           onErrorClick={fetchGroups}
         />
 
-        <AddTodo
+        <TodoForm
           groupId={groups.idCurrent}
           onAddClick={createTodo}
         />
@@ -68,6 +68,7 @@ Todos.propTypes = {
   selectGroup: PropTypes.func.isRequired
 }
 
+// NOTE: using connect() here, so
 // eslint-disable-next-line no-class-assign
 Todos = connect(
   state => ({
