@@ -1,14 +1,15 @@
 import React from 'react'
+import Styled from './styled'
 import GroupsContainer from './containers/Groups'
 import TodosContainer from './containers/Todos'
 import TodoFormContainer from './containers/TodoForm'
 
 const Todos = () => (
-  <div className='todoapp'>
+  <Styled>
     <GroupsContainer />
     <TodoFormContainer />
     <TodosContainer />
-  </div>
+  </Styled>
 )
 
 export default Todos
