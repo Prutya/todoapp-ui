@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Group from './Group'
-import SpinnerWrapper from './SpinnerWrapper'
-import { ErrorMessage, NoDataMessage } from './Message'
+import Inner from './Inner'
+import Group from '../Group'
+import SpinnerWrapper from '../SpinnerWrapper'
+import { ErrorMessage, NoDataMessage } from '../Message'
 
 const GroupList = ({
   groups,
@@ -12,19 +13,19 @@ const GroupList = ({
   isFetching,
   currentGroupId
 }) => {
-  const wrapGutter = (gutter) => (
-    <ul className='group-list'>
+  const wrap = (gutter) => (
+    <Inner>
       <SpinnerWrapper active={isFetching} paddingTop='120px' />
       {gutter}
-    </ul>
+    </Inner>
   )
 
   if (isFetching) {
-    return wrapGutter(null)
+    return wrap(null)
   }
 
   if (errorMessage) {
-    return wrapGutter(
+    return wrap(
       <ErrorMessage
         onBtnClick={() => onErrorClick()}
         text={errorMessage}
@@ -33,12 +34,12 @@ const GroupList = ({
   }
 
   if (!groups.length) {
-    return wrapGutter(
+    return wrap(
       <NoDataMessage />
     )
   }
 
-  return wrapGutter(
+  return wrap(
     groups.map(group =>
       <Group
         key={group.id}

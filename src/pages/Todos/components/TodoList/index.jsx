@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Todo from './Todo'
-import SpinnerWrapper from './SpinnerWrapper'
-import { ErrorMessage, NoDataMessage } from './Message'
+import Inner from './Inner'
+import Todo from '../Todo'
+import SpinnerWrapper from '../SpinnerWrapper'
+import { ErrorMessage, NoDataMessage } from '../Message'
 
 const TodoList = ({
   todos,
@@ -11,19 +12,19 @@ const TodoList = ({
   onErrorClick,
   errorMessage
 }) => {
-  const wrapGutter = (gutter) => (
-    <ul className='todo-list'>
+  const wrap = (gutter) => (
+    <Inner>
       <SpinnerWrapper active={isFetching} paddingTop='120px' />
       {gutter}
-    </ul>
+    </Inner>
   )
 
   if (isFetching) {
-    return wrapGutter(null)
+    return wrap(null)
   }
 
   if (errorMessage) {
-    return wrapGutter(
+    return wrap(
       <ErrorMessage
         onBtnClick={() => onErrorClick()}
         text={errorMessage}
@@ -32,12 +33,12 @@ const TodoList = ({
   }
 
   if (!todos.length) {
-    return wrapGutter(
+    return wrap(
       <NoDataMessage />
     )
   }
 
-  return wrapGutter(
+  return wrap(
     todos.map(todo =>
       <Todo
         key={todo.id}
