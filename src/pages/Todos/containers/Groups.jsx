@@ -1,5 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
+import * as selectors from '../selectors'
 import GroupList from '../components/GroupList'
 
 class Groups extends React.Component {
@@ -31,5 +35,24 @@ Groups.propTypes = {
   select: PropTypes.func.isRequired,
   fetch: PropTypes.func.isRequired
 }
+
+const mapStateToProps = (state) => ({
+  all: selectors.allGroups(state),
+  idCurrent: state.todos.groups.idCurrent,
+  isFetching: state.todos.groups.isFetching,
+  errorMessage: state.todos.groups.errorMessage
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetch: bindActionCreators(actions.fetchGroups, dispatch),
+  select: bindActionCreators(actions.selectGroup, dispatch)
+})
+
+// NOTE: using connect here, so
+// eslint-disable-next-line no-class-assign
+Groups = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Groups)
 
 export default Groups
