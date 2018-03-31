@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components'
-import { colors } from '../../../../styles'
+import { colors } from 'styles'
 
 const animation = keyframes`
   0%, 70%, 100% {

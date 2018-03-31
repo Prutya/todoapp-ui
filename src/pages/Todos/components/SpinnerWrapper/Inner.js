@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { colors } from '../../../../styles'
+import { colors } from 'styles'
 
 const Inner = styled.div`
   background-color: ${colors.sub2Trans};

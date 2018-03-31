@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../../styles'
+import { colors } from 'styles'
 
 const TextInput = styled.input`
   border: 3px solid ${colors.sub1};
