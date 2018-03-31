@@ -1,81 +1,76 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from './actions'
 import * as selectors from './selectors'
-import GroupList from './components/GroupList'
-import TodoList from './components/TodoList'
+import GroupsContainer from './containers/Groups'
+import TodosContainer from './containers/Todos'
 import TodoForm from './components/TodoForm'
 
-class Todos extends React.Component {
-  componentDidMount () {
-    const { fetchGroups } = this.props
-
-    fetchGroups()
-  }
-
-  render () {
-    const {
-      groups,
-      allGroups,
-      todos,
-      fetchGroups,
-      fetchTodos,
-      toggleTodo,
-      createTodo,
-      selectGroup
-    } = this.props
-
-    const allTodos = todos.ids.map(id => todos.byId[id])
-    const visibleTodos = allTodos.filter(todo => todo.todoGroupId === groups.idCurrent)
-
-    return (
-      <div className='todoapp'>
-        <GroupList
-          groups={allGroups}
-          errorMessage={groups.errorMessage}
-          currentGroupId={groups.idCurrent}
-          isFetching={groups.isFetching}
-          onGroupClick={selectGroup}
-          onErrorClick={fetchGroups}
-        />
-
-        <TodoForm
-          groupId={groups.idCurrent}
-          onAddClick={createTodo}
-        />
-
-        <TodoList
-          todos={visibleTodos}
-          onTodoClick={toggleTodo}
-          onErrorClick={() => fetchTodos(groups.idCurrent)}
-          errorMessage={todos.errorMessage}
-          isFetching={todos.isFetching}
-        />
-      </div>
-    )
-  }
-}
+let Todos = ({ groups, todos }) => (
+  <div className='todoapp'>
+    <GroupsContainer {...groups} />
+    <TodoForm
+      groupId={groups.idCurrent}
+      onAddClick={todos.create}
+    />
+    <TodosContainer {...todos} />
+  </div>
+)
 
 Todos.propTypes = {
   groups: PropTypes.object.isRequired,
-  allGroups: PropTypes.array.isRequired,
-  todos: PropTypes.object.isRequired,
-  fetchTodos: PropTypes.func.isRequired,
-  fetchGroups: PropTypes.func.isRequired,
-  toggleTodo: PropTypes.func.isRequired,
-  createTodo: PropTypes.func.isRequired,
-  selectGroup: PropTypes.func.isRequired
+  todos: PropTypes.object.isRequired
 }
 
-// NOTE: using connect() here, so
-// eslint-disable-next-line no-class-assign
+const mapStateToProps = (state) => {
+  const scopedState = state.todos
+
+  return {
+    groups: {
+      all: selectors.allGroups(state),
+      idCurrent: scopedState.groups.idCurrent,
+      isFetching: scopedState.groups.isFetching,
+      errorMessage: scopedState.groups.errorMessage
+    },
+    todos: {
+      visible: selectors.visibleTodos(state),
+      currentGroupId: scopedState.groups.idCurrent,
+      isFetching: scopedState.todos.isFetching,
+      errorMessage: scopedState.todos.errorMessage
+    }
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  groups: {
+    fetch: bindActionCreators(actions.fetchGroups, dispatch),
+    select: bindActionCreators(actions.selectGroup, dispatch)
+  },
+  todos: {
+    fetch: bindActionCreators(actions.fetchTodos, dispatch),
+    create: bindActionCreators(actions.createTodo, dispatch),
+    toggle: bindActionCreators(actions.toggleTodo, dispatch)
+  }
+})
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  groups: {
+    ...stateProps.groups,
+    ...dispatchProps.groups
+  },
+  todos: {
+    ...stateProps.todos,
+    ...dispatchProps.todos
+  }
+})
+
 Todos = connect(
-  state => ({
-    ...state.todos,
-    allGroups: selectors.allGroups(state)
-  }),
-  actions
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
 )(Todos)
 
 export default Todos
