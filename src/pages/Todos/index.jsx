@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 import GroupList from './components/GroupList'
 import TodoList from './components/TodoList'
-import TodoForm from './components/Todoform'
+import TodoForm from './components/TodoForm'
 
 class Todos extends React.Component {
   componentDidMount () {
