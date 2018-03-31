@@ -1,7 +1,6 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const config = {
   output: {
@@ -59,15 +58,15 @@ const config = {
       inject: 'body'
     })
   ]
-};
+}
 
 if (!(process.env.NODE_ENV === 'production')) {
-  config.devtool = 'eval-source-map';
+  config.devtool = 'eval-source-map'
   config.devServer = {
     contentBase: path.resolve(__dirname, './build'),
     port: 4000,
     historyApiFallback: true
-  };
+  }
 }
 
-module.exports = config;
+module.exports = config

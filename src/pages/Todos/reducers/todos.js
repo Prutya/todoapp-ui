@@ -6,13 +6,13 @@ const ids = (state = [], action) => {
       return [
         ...new Set([
           ...state,
-          ...action.response.result,
+          ...action.response.result
         ])
       ]
     case 'TODOS_CREATE_SUCCESS':
       return [
         action.response.result,
-        ...state,
+        ...state
       ]
     default:
       return state

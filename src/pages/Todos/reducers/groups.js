@@ -6,7 +6,7 @@ const ids = (state = [], action) => {
       return [
         ...new Set([
           ...state,
-          ...action.response.result,
+          ...action.response.result
         ])
       ]
     default:

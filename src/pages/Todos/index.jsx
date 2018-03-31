@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as actions from './actions'
 import * as selectors from './selectors'
@@ -7,13 +8,13 @@ import TodoList from './components/TodoList'
 import AddTodo from './components/AddTodo'
 
 class Todos extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     const { fetchGroups } = this.props
 
     fetchGroups()
   }
 
-  render() {
+  render () {
     const {
       groups,
       allGroups,
@@ -29,7 +30,7 @@ class Todos extends React.Component {
     const visibleTodos = allTodos.filter(todo => todo.todoGroupId === groups.idCurrent)
 
     return (
-      <div className="todoapp">
+      <div className='todoapp'>
         <GroupList
           groups={allGroups}
           errorMessage={groups.errorMessage}
@@ -56,6 +57,18 @@ class Todos extends React.Component {
   }
 }
 
+Todos.propTypes = {
+  groups: PropTypes.object.isRequired,
+  allGroups: PropTypes.array.isRequired,
+  todos: PropTypes.object.isRequired,
+  fetchTodos: PropTypes.func.isRequired,
+  fetchGroups: PropTypes.func.isRequired,
+  toggleTodo: PropTypes.func.isRequired,
+  createTodo: PropTypes.func.isRequired,
+  selectGroup: PropTypes.func.isRequired
+}
+
+// eslint-disable-next-line no-class-assign
 Todos = connect(
   state => ({
     ...state.todos,

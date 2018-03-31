@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '../Button'
 import Inner from './Inner'
 import Text from './Text'
@@ -24,4 +25,9 @@ export const ErrorMessage = ({ onBtnClick, message }) => {
       </Button>
     </Inner>
   )
+}
+
+ErrorMessage.propTypes = {
+  onBtnClick: PropTypes.func,
+  message: PropTypes.string
 }

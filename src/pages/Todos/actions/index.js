@@ -17,7 +17,7 @@ export const fetchGroups = () => (dispatch) => {
         response: normalizedResponse
       })
 
-      if (!!lastGroupId) {
+      if (lastGroupId) {
         selectGroup(lastGroupId)(dispatch)
       }
     },
@@ -105,7 +105,7 @@ export const createTodo = (groupId, title) => (dispatch) => {
       dispatch({
         type: 'TODOS_CREATE_SUCCESS',
         groupId,
-        response: normalize(response.todo, schema.todo),
+        response: normalize(response.todo, schema.todo)
       })
     },
 

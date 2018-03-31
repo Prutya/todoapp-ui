@@ -1,12 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Todo from './Todo'
 import SpinnerWrapper from './SpinnerWrapper'
 import { ErrorMessage, NoDataMessage } from './Message'
 
-const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }) => {
+const TodoList = ({
+  todos,
+  onTodoClick,
+  isFetching,
+  onErrorClick,
+  errorMessage
+}) => {
   const wrapGutter = (gutter) => (
     <ul className='todo-list'>
-      <SpinnerWrapper active={isFetching} paddingTop="120px"/>
+      <SpinnerWrapper active={isFetching} paddingTop='120px' />
       {gutter}
     </ul>
   )
@@ -15,7 +22,7 @@ const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }
     return wrapGutter(null)
   }
 
-  if (!!errorMessage) {
+  if (errorMessage) {
     return wrapGutter(
       <ErrorMessage
         onBtnClick={() => onErrorClick()}
@@ -26,7 +33,7 @@ const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }
 
   if (!todos.length) {
     return wrapGutter(
-      <NoDataMessage/>
+      <NoDataMessage />
     )
   }
 
@@ -41,6 +48,14 @@ const TodoList = ({ todos, onTodoClick, isFetching, onErrorClick, errorMessage }
       </Todo>
     )
   )
+}
+
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired,
+  onTodoClick: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  onErrorClick: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string
 }
 
 export default TodoList

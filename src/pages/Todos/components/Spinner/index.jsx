@@ -3,9 +3,9 @@ import Inner from './Inner'
 import Item from './Item'
 
 const delays = [
-    0, 100, 200,
-  200, 100,   0,
-    0, 100, 200,
+  0, 100, 200,
+  200, 100, 0,
+  0, 100, 200
 ]
 
 const Spinner = () => (

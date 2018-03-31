@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from './Button'
 
 const AddTodo = ({ groupId, onAddClick }) => {
@@ -6,14 +7,14 @@ const AddTodo = ({ groupId, onAddClick }) => {
 
   if (groupId == null) {
     return (
-      <div className="add-todo"></div>
+      <div className='add-todo' />
     )
   }
 
   return (
-    <div onSubmit={(e) => onSubmit(e)} className="add-todo">
-      <input ref={(node) => { inputNode = node }} className="add-todo__input" />
-      <Button width="20%" onClick={() => {
+    <div className='add-todo'>
+      <input ref={(node) => { inputNode = node }} className='add-todo__input' />
+      <Button width='20%' onClick={() => {
         onAddClick(groupId, inputNode.value)
         inputNode.value = ''
       }}>
@@ -21,6 +22,11 @@ const AddTodo = ({ groupId, onAddClick }) => {
       </Button>
     </div>
   )
+}
+
+AddTodo.propTypes = {
+  groupId: PropTypes.number,
+  onAddClick: PropTypes.func.isRequired
 }
 
 export default AddTodo

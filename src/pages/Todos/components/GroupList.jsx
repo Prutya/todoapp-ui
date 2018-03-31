@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Group from './Group'
 import SpinnerWrapper from './SpinnerWrapper'
 import { ErrorMessage, NoDataMessage } from './Message'
@@ -13,7 +14,7 @@ const GroupList = ({
 }) => {
   const wrapGutter = (gutter) => (
     <ul className='group-list'>
-      <SpinnerWrapper active={isFetching} paddingTop="120px"/>
+      <SpinnerWrapper active={isFetching} paddingTop='120px' />
       {gutter}
     </ul>
   )
@@ -22,7 +23,7 @@ const GroupList = ({
     return wrapGutter(null)
   }
 
-  if (!!errorMessage) {
+  if (errorMessage) {
     return wrapGutter(
       <ErrorMessage
         onBtnClick={() => onErrorClick()}
@@ -33,7 +34,7 @@ const GroupList = ({
 
   if (!groups.length) {
     return wrapGutter(
-      <NoDataMessage/>
+      <NoDataMessage />
     )
   }
 
@@ -48,6 +49,15 @@ const GroupList = ({
       </Group>
     )
   )
+}
+
+GroupList.propTypes = {
+  groups: PropTypes.array.isRequired,
+  onGroupClick: PropTypes.func.isRequired,
+  onErrorClick: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+  currentGroupId: PropTypes.number
 }
 
 export default GroupList
