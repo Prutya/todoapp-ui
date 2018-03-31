@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { clearFix } from 'polished'
-import { colors } from '../../../../styles'
+import { colors } from 'styles'
 
 const Inner = styled.div`
   background-color: ${colors.sub2};

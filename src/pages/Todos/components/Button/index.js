@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { colors } from '../../../../styles'
+import { colors } from 'styles'
 
 const Button = styled.button`
   background-color: ${colors.main};
