@@ -13,13 +13,14 @@ export const fetchGroups = (history, groupFilter) => (dispatch) => {
     response => {
       const normalizedResponse = normalize(response.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
+      const groupPresent = normalizedResponse.entities.todoGroups[groupFilterInt]
 
       dispatch({
         type: 'GROUPS_FETCH_SUCCESS',
         response: normalizedResponse
       })
 
-      if (groupFilterInt) {
+      if (groupFilterInt && groupPresent) {
         selectGroup(groupFilterInt, history)(dispatch)
       } else if (lastGroupId) {
         selectGroup(lastGroupId, history)(dispatch)
