@@ -4,8 +4,9 @@ const Dotenv = require('dotenv-webpack')
 
 const config = {
   output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'build')
+    filename: 'assets/[name].[hash].js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/'
   },
 
   resolve: {
