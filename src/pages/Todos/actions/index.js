@@ -2,7 +2,7 @@ import { normalize } from 'normalizr'
 import * as api from '../../../api'
 import * as schema from './schema'
 
-export const fetchGroups = () => (dispatch) => {
+export const fetchGroups = (history) => (dispatch) => {
   dispatch({
     type: 'GROUPS_FETCH_REQUEST'
   })
@@ -18,7 +18,7 @@ export const fetchGroups = () => (dispatch) => {
       })
 
       if (lastGroupId) {
-        selectGroup(lastGroupId)(dispatch)
+        selectGroup(lastGroupId, history)(dispatch)
       }
     },
 
@@ -31,11 +31,13 @@ export const fetchGroups = () => (dispatch) => {
   )
 }
 
-export const selectGroup = (id) => (dispatch) => {
+export const selectGroup = (id, history) => (dispatch) => {
   dispatch({
     type: 'GROUPS_SELECT',
     id
   })
+
+  history.push(id ? `/todo-groups/${id}` : 'todo-groups')
 
   fetchTodos(id)(dispatch)
 }
