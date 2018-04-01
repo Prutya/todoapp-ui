@@ -1,14 +1,14 @@
 import React from 'react'
 import Styled from './styled'
-import GroupsContainer from './containers/Groups'
-import TodosContainer from './containers/Todos'
+import GroupListContainer from './containers/GroupList'
 import TodoFormContainer from './containers/TodoForm'
+import TodoListContainer from './containers/TodoList'
 
 const Todos = () => (
   <Styled>
-    <GroupsContainer />
+    <GroupListContainer />
     <TodoFormContainer />
-    <TodosContainer />
+    <TodoListContainer />
   </Styled>
 )
 

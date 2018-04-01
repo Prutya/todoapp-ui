@@ -45,7 +45,6 @@ const config = {
 if (!(process.env.NODE_ENV === 'production')) {
   config.devtool = 'eval-source-map'
   config.devServer = {
-    contentBase: path.resolve(__dirname, './build'),
     port: 4000,
     historyApiFallback: true
   }

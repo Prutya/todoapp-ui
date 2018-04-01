@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Inner = styled.ul`
+const Styled = styled.ul`
   float: left;
   height: 100%;
   overflow-y: scroll;
@@ -9,4 +9,4 @@ const Inner = styled.ul`
   width: 20%;
 `
 
-export default Inner
+export default Styled

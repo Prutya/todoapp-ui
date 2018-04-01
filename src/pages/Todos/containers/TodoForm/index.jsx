@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
-import TodoForm from '../components/TodoForm'
+
+import * as actions from '../../actions'
+import TodoForm from '../../components/TodoForm'
 
 let TodoFormContainer = ({ groupId, createTodo }) => (
   <TodoForm
