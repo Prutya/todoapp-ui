@@ -2,7 +2,9 @@ import { normalize } from 'normalizr'
 import * as api from '../../../api'
 import * as schema from './schema'
 
-export const fetchGroups = (history) => (dispatch) => {
+export const fetchGroups = (history, groupFilter) => (dispatch) => {
+  const groupFilterInt = parseInt(groupFilter)
+
   dispatch({
     type: 'GROUPS_FETCH_REQUEST'
   })
@@ -17,7 +19,9 @@ export const fetchGroups = (history) => (dispatch) => {
         response: normalizedResponse
       })
 
-      if (lastGroupId) {
+      if (groupFilterInt) {
+        selectGroup(groupFilterInt, history)(dispatch)
+      } else if (lastGroupId) {
         selectGroup(lastGroupId, history)(dispatch)
       }
     },

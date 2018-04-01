@@ -13,9 +13,9 @@ import { ErrorMessage, NoDataMessage } from 'pages/Todos/components/Message'
 
 class GroupsList extends React.Component {
   componentDidMount () {
-    const { fetch, history } = this.props
+    const { fetch, history, match: { params } } = this.props
 
-    fetch(history)
+    fetch(history, params.groupId)
   }
 
   render () {
@@ -66,6 +66,7 @@ class GroupsList extends React.Component {
 }
 
 GroupsList.propTypes = {
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   groups: PropTypes.array.isRequired,
   errorMessage: PropTypes.string,
