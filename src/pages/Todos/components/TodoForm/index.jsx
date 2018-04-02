@@ -4,27 +4,38 @@ import Button from '../Button'
 import Inner from './Inner'
 import TextInput from './TextInput'
 
-const TodoForm = ({ groupId, onAddClick }) => {
-  let inputNode
+class TodoForm extends React.Component {
+  constructor (...args) {
+    super(...args)
 
-  if (groupId === null) {
-    return <Inner />
+    this.state = {
+      inputValue: ''
+    }
   }
 
-  return (
-    <Inner>
-      <TextInput innerRef={node => { inputNode = node }} />
-      <Button
-        width='20%'
-        onClick={() => {
-          onAddClick(groupId, inputNode.value)
-          inputNode.value = ''
-        }}
-      >
-        Add Todo
-      </Button>
-    </Inner>
-  )
+  render () {
+    const { groupId, onAddClick } = this.props
+
+    return (
+      <Inner>
+        <TextInput
+          value={this.state.inputValue}
+          onChange={(e) => {
+            this.setState({ inputValue: e.target.value })
+          }}
+        />
+        <Button
+          width='20%'
+          onClick={() => {
+            onAddClick(groupId, this.state.inputValue)
+            this.setState({ inputValue: '' })
+          }}
+        >
+          Add Todo
+        </Button>
+      </Inner>
+    )
+  }
 }
 
 TodoForm.propTypes = {
