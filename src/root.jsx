@@ -1,20 +1,33 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom'
 
-import Todos from './pages/Todos'
+import PrivateRoute from 'containers/PrivateRoute'
+import Todos from 'pages/Todos'
+import Auth from 'pages/Auth'
 
-const Root = () => (
+let Root = ({ user }) => (
   <Router>
     <Switch>
-      <Redirect exact from='/' to='/todo-groups' />
-      <Route path='/todo-groups/:groupId?' component={Todos} />
+      <Route path='/auth' component={Auth} />
+      <PrivateRoute path='/todo-groups/:groupId?' component={Todos} user={user} />
     </Switch>
   </Router>
 )
+
+Root.propTypes = {
+  user: PropTypes.object
+}
+
+Root = connect(
+  state => ({
+    user: state.auth.user
+  })
+)(Root)
 
 export default Root
