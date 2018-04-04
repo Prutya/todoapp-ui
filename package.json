@@ -11,6 +11,7 @@
     "url": "https://github.com/Prutya/todoapp-ui.git"
   },
   "dependencies": {
+    "lodash": "^4.17.5",
     "normalizr": "^3.2.4",
     "polished": "^1.9.2",
     "react": "^16.3.0",

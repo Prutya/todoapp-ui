@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { get as _get } from 'lodash'
 
 import * as actions from 'pages/Auth/actions'
 
@@ -71,7 +72,7 @@ FormContainer = connect(
   (_, ownProps) => ({
     history: ownProps.history,
     // TODO: ???
-    redirectPath: (((ownProps.location || {}).params || {}).state || {}).from
+    redirectPath: _get(ownProps, 'location.state.from.pathname')
   }),
   { ...actions }
 )(FormContainer)
