@@ -1,3 +1,5 @@
+import { setUser } from 'services/auth'
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (dispatch) => {
@@ -5,14 +7,13 @@ export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (d
     type: 'AUTH_SIGN_IN_REQUEST'
   })
 
-  sleep(300).then(() => {
+  sleep(300).then(response => {
     dispatch({
-      type: 'AUTH_SIGN_IN_SUCCESS',
-      response: {
-        name: 'Anton'
-      }
+      type: 'AUTH_SIGN_IN_SUCCESS'
     })
 
-    history.push(redirectPath)
+    setUser({
+      name: 'Anton'
+    })
   })
 }

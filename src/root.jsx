@@ -6,6 +6,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+import { getUser } from 'services/auth'
 
 import PrivateRoute from 'containers/PrivateRoute'
 import Todos from 'pages/Todos'
@@ -26,7 +27,7 @@ Root.propTypes = {
 
 Root = connect(
   state => ({
-    user: state.auth.user
+    user: getUser()
   })
 )(Root)
 
