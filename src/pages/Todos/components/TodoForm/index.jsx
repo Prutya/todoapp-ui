@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from 'components/Button'
+import Input from 'components/Input'
 import Inner from './Inner'
-import TextInput from './TextInput'
 
 class TodoForm extends React.Component {
   constructor (...args) {
@@ -18,7 +18,8 @@ class TodoForm extends React.Component {
 
     return (
       <Inner>
-        <TextInput
+        <Input
+          style={{ height: '100%', width: '80%' }}
           value={this.state.inputValue}
           onChange={(e) => {
             this.setState({ inputValue: e.target.value })
