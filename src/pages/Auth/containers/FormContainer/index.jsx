@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { get as _get } from 'lodash'
 
-import * as actions from 'pages/Auth/actions'
-
+import { signIn } from 'pages/Auth/actions'
 import Form from 'components/Form'
 import FormGroup from 'components/FormGroup'
 import FormLabel from 'components/FormLabel'
@@ -74,7 +73,7 @@ FormContainer = connect(
     // TODO: ???
     redirectPath: _get(ownProps, 'location.state.from.pathname')
   }),
-  { ...actions }
+  { signIn }
 )(FormContainer)
 
 // NOTE: using withRouter here, so

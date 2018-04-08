@@ -17,3 +17,13 @@ export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (d
       history.push(redirectPath)
     })
 }
+
+export const signOut = (history) => (dispatch) => {
+  dispatch({
+    type: 'AUTH_SIGN_OUT'
+  })
+
+  localStorage.removeItem('jwt')
+
+  history.push('/auth')
+}

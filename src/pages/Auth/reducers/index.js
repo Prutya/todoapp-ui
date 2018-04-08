@@ -14,6 +14,8 @@ const isAuthenticating = (state = false, action) => {
 
 const token = (state = null, action) => {
   switch (action.type) {
+    case 'AUTH_SIGN_OUT':
+      return null
     case 'AUTH_ALREADY_SIGNED_IN':
       return action.jwt
     case 'AUTH_SIGN_IN_SUCCESS':
