@@ -15,6 +15,7 @@ import Auth from 'pages/Auth'
 let Root = ({ signedIn }) => (
   <Router>
     <Switch>
+      <Redirect exact from='/' to='todo-groups' />
       <Route exact path='/auth'
         render={() => (
           signedIn
