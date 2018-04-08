@@ -1,19 +1,20 @@
-import { setUser } from 'services/auth'
-
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+import { set as setToken } from 'services/auth'
+import { signIn as apiSignIn } from 'api'
 
 export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (dispatch) => {
   dispatch({
     type: 'AUTH_SIGN_IN_REQUEST'
   })
 
-  sleep(300).then(response => {
-    dispatch({
-      type: 'AUTH_SIGN_IN_SUCCESS'
-    })
+  return apiSignIn(name, pass)
+    .then(response => {
+      dispatch({
+        type: 'AUTH_SIGN_IN_SUCCESS',
+        response
+      })
 
-    setUser({
-      name: 'Anton'
+      setToken(response.jwt)
+
+      history.push(redirectPath)
     })
-  })
 }

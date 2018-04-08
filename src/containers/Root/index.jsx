@@ -6,28 +6,27 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import { getUser } from 'services/auth'
 
 import PrivateRoute from 'containers/PrivateRoute'
 import Todos from 'pages/Todos'
 import Auth from 'pages/Auth'
 
-let Root = ({ user }) => (
+let Root = ({ signedIn }) => (
   <Router>
     <Switch>
-      <Route path='/auth' component={Auth} />
-      <PrivateRoute path='/todo-groups/:groupId?' component={Todos} user={user} />
+      <Route path='/auth' component={Auth} signedIn={signedIn} />
+      <PrivateRoute path='/todo-groups/:groupId?' component={Todos} signedIn={signedIn} />
     </Switch>
   </Router>
 )
 
 Root.propTypes = {
-  user: PropTypes.object
+  signedIn: PropTypes.bool
 }
 
 Root = connect(
   state => ({
-    user: getUser()
+    signedIn: !!state.auth.token
   })
 )(Root)
 

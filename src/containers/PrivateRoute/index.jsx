@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 
-const PrivateRoute = ({ user, component: Component, ...rest }) => (
+const PrivateRoute = ({ signedIn, component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      return user
+      return signedIn
         ? <Component {...props} />
         : <Redirect to={{ pathname: '/auth', state: { from: props.location } }} />
     }}
@@ -14,7 +14,7 @@ const PrivateRoute = ({ user, component: Component, ...rest }) => (
 )
 
 PrivateRoute.propTypes = {
-  user: PropTypes.object,
+  signedIn: PropTypes.bool,
   component: PropTypes.func,
   location: PropTypes.object
 }
