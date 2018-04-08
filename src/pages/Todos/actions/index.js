@@ -2,14 +2,14 @@ import { normalize } from 'normalizr'
 import * as api from 'api'
 import * as schema from './schema'
 
-export const fetchGroups = (history, groupFilter) => (dispatch) => {
+export const fetchGroups = (token, history, groupFilter) => (dispatch) => {
   const groupFilterInt = parseInt(groupFilter)
 
   dispatch({
     type: 'GROUPS_FETCH_REQUEST'
   })
 
-  api.fetchGroups().then(
+  api.fetchGroups(token).then(
     response => {
       const normalizedResponse = normalize(response.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
@@ -21,9 +21,9 @@ export const fetchGroups = (history, groupFilter) => (dispatch) => {
       })
 
       if (groupFilterInt && groupPresent) {
-        selectGroup(groupFilterInt, history)(dispatch)
+        selectGroup(token, groupFilterInt, history)(dispatch)
       } else if (lastGroupId) {
-        selectGroup(lastGroupId, history)(dispatch)
+        selectGroup(token, lastGroupId, history)(dispatch)
       }
     },
 
@@ -36,7 +36,7 @@ export const fetchGroups = (history, groupFilter) => (dispatch) => {
   )
 }
 
-export const selectGroup = (id, history) => (dispatch) => {
+export const selectGroup = (token, id, history) => (dispatch) => {
   dispatch({
     type: 'GROUPS_SELECT',
     id
@@ -44,16 +44,16 @@ export const selectGroup = (id, history) => (dispatch) => {
 
   history.push(id ? `/todo-groups/${id}` : 'todo-groups')
 
-  fetchTodos(id)(dispatch)
+  fetchTodos(token, id)(dispatch)
 }
 
-export const fetchTodos = (groupId) => (dispatch) => {
+export const fetchTodos = (token, groupId) => (dispatch) => {
   dispatch({
     type: 'TODOS_FETCH_REQUEST',
     groupId
   })
 
-  api.fetchTodos(groupId).then(
+  api.fetchTodos(token, groupId).then(
     response => {
       dispatch({
         type: 'TODOS_FETCH_SUCCESS',
@@ -71,13 +71,13 @@ export const fetchTodos = (groupId) => (dispatch) => {
   )
 }
 
-export const toggleTodo = (id) => (dispatch) => {
+export const toggleTodo = (token, id) => (dispatch) => {
   dispatch({
     type: 'TODOS_TOGGLE_REQUEST',
     id
   })
 
-  api.toggleTodo(id).then(
+  api.toggleTodo(token, id).then(
     response => {
       dispatch({
         type: 'TODOS_TOGGLE_SUCCESS',
@@ -96,7 +96,7 @@ export const toggleTodo = (id) => (dispatch) => {
   )
 }
 
-export const createTodo = (groupId, title) => (dispatch) => {
+export const createTodo = (token, groupId, title) => (dispatch) => {
   if (!/\S/.test(title)) {
     return Promise.resolve()
   }
@@ -107,7 +107,7 @@ export const createTodo = (groupId, title) => (dispatch) => {
     title
   })
 
-  api.createTodo(groupId, title).then(
+  api.createTodo(token, groupId, title).then(
     response => {
       dispatch({
         type: 'TODOS_CREATE_SUCCESS',

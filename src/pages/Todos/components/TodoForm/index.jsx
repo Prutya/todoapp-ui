@@ -14,7 +14,7 @@ class TodoForm extends React.Component {
   }
 
   render () {
-    const { groupId, onAddClick } = this.props
+    const { onAddClick } = this.props
 
     return (
       <Inner>
@@ -28,7 +28,7 @@ class TodoForm extends React.Component {
         <Button
           width='20%'
           onClick={() => {
-            onAddClick(groupId, this.state.inputValue)
+            onAddClick(this.state.inputValue)
             this.setState({ inputValue: '' })
           }}
         >
@@ -40,7 +40,6 @@ class TodoForm extends React.Component {
 }
 
 TodoForm.propTypes = {
-  groupId: PropTypes.number,
   onAddClick: PropTypes.func.isRequired
 }
 

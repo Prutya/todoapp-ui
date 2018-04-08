@@ -4,17 +4,25 @@ const groupsEndpoint = `${host}/api/v1/todo_groups`
 const todosEndpoint = `${host}/api/v1/todos`
 const authEndpoint = `${host}/api/v1/user_token`
 
-export const fetchGroups = () => (
-  fetch(groupsEndpoint, options.get)
+const insertAuthHeader = (options, token) => ({
+  ...options,
+  headers: {
+    ...options.headers,
+    'Authorization': `Bearer ${token}`
+  }
+})
+
+export const fetchGroups = (token) => (
+  fetch(groupsEndpoint, insertAuthHeader(options.get, token))
     .then(response => response.json())
 )
 
-export const fetchTodos = (groupId) => (
-  fetch(`${groupsEndpoint}/${groupId}/todos`, options.get)
+export const fetchTodos = (token, groupId) => (
+  fetch(`${groupsEndpoint}/${groupId}/todos`, insertAuthHeader(options.get, token))
     .then(response => response.json())
 )
 
-export const createTodo = (groupId, title) => {
+export const createTodo = (token, groupId, title) => {
   const reqOptions = {
     ...options.post,
     body: JSON.stringify({
@@ -24,12 +32,12 @@ export const createTodo = (groupId, title) => {
     })
   }
 
-  return fetch(`${groupsEndpoint}/${groupId}/todos`, reqOptions)
+  return fetch(`${groupsEndpoint}/${groupId}/todos`, insertAuthHeader(reqOptions, token))
     .then(response => response.json())
 }
 
-export const toggleTodo = (id) => (
-  fetch(`${todosEndpoint}/${id}`, options.patch)
+export const toggleTodo = (token, id) => (
+  fetch(`${todosEndpoint}/${id}`, insertAuthHeader(options.patch, token))
     .then(response => response.json())
 )
 

@@ -13,13 +13,13 @@ import { ErrorMessage, NoDataMessage } from 'pages/Todos/components/Message'
 
 class GroupsList extends React.Component {
   componentDidMount () {
-    const { fetch, history, match: { params } } = this.props
+    const { fetch, token, history, match: { params } } = this.props
 
-    fetch(history, params.groupId)
+    fetch(token, history, params.groupId)
   }
 
   render () {
-    const { history, groups, groupFilter, isFetching, errorMessage, fetch, select } = this.props
+    const { token, history, groups, groupFilter, isFetching, errorMessage, fetch, select } = this.props
 
     if (isFetching) {
       return this.wrap(null)
@@ -28,7 +28,7 @@ class GroupsList extends React.Component {
     if (errorMessage) {
       return this.wrap(
         <ErrorMessage
-          onBtnClick={() => fetch(history)}
+          onBtnClick={() => fetch(token, history)}
           text={errorMessage}
         />
       )
@@ -45,7 +45,7 @@ class GroupsList extends React.Component {
         <Group
           key={group.id}
           active={group.id === parseInt(groupFilter)}
-          onClick={() => select(group.id, history)}
+          onClick={() => select(token, group.id, history)}
         >
           {group.title}
         </Group>
@@ -66,6 +66,7 @@ class GroupsList extends React.Component {
 }
 
 GroupsList.propTypes = {
+  token: PropTypes.string,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   groups: PropTypes.array.isRequired,
@@ -77,6 +78,7 @@ GroupsList.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  token: state.auth.token,
   history: ownProps.history,
   groups: selectors.allGroups(state),
   groupFilter: ownProps.groupFilter,
