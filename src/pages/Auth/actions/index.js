@@ -1,4 +1,3 @@
-import { set as setToken } from 'services/auth'
 import { signIn as apiSignIn } from 'api'
 
 export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (dispatch) => {
@@ -13,7 +12,7 @@ export const signIn = (history, name, pass, redirectPath = '/todo-groups') => (d
         response
       })
 
-      setToken(response.jwt)
+      localStorage.setItem('jwt', response.jwt)
 
       history.push(redirectPath)
     })

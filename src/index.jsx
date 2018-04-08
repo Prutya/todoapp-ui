@@ -2,12 +2,11 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store'
-import { get as getToken } from 'services/auth'
 import './styles/global'
 import Root from 'containers/Root'
 
 const store = configureStore()
-const token = getToken()
+const token = localStorage.getItem('jwt')
 
 if (token) {
   store.dispatch({
