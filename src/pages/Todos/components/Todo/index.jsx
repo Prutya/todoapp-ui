@@ -8,7 +8,7 @@ import TodoText from 'pages/Todos/components/TodoText'
 
 const Todo = ({ completed, text, onTextClick, onDeleteClick }) => (
   <Styled>
-    <TodoText onClick={() => onTextClick()} striked={!completed}>
+    <TodoText onClick={() => onTextClick()} striked={completed}>
       {text}
     </TodoText>
     <TodoDeleteBtn onClick={() => onDeleteClick()}>
