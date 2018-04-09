@@ -125,3 +125,27 @@ export const createTodo = (token, groupId, title) => (dispatch) => {
     }
   )
 }
+
+export const destroyTodo = (token, id) => (dispatch) => {
+  dispatch({
+    type: 'TODOS_DESTROY_REQUEST',
+    id
+  })
+
+  api.destroyTodo(token, id).then(
+    response => {
+      dispatch({
+        type: 'TODOS_DESTROY_SUCCESS',
+        id
+      })
+    },
+
+    error => {
+      dispatch({
+        type: 'TODOS_DESTROY_ERROR',
+        id,
+        message: error.message
+      })
+    }
+  )
+}

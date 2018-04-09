@@ -7,7 +7,7 @@ const authEndpoint = `${host}/api/v1/user_token`
 const insertAuthHeader = (options, token) => ({
   ...options,
   headers: {
-    ...options.headers,
+    ...(options.headers || {}),
     'Authorization': `Bearer ${token}`
   }
 })
@@ -39,6 +39,10 @@ export const createTodo = (token, groupId, title) => {
 export const toggleTodo = (token, id) => (
   fetch(`${todosEndpoint}/${id}`, insertAuthHeader(options.patch, token))
     .then(response => response.json())
+)
+
+export const destroyTodo = (token, id) => (
+  fetch(`${todosEndpoint}/${id}`, insertAuthHeader(options.destroy, token))
 )
 
 export const signIn = (login, password) => {

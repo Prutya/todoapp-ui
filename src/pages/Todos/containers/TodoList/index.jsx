@@ -17,7 +17,8 @@ let TodoList = ({
   isFetching,
   errorMessage,
   fetch,
-  toggle
+  toggle,
+  destroy
 }) => {
   const wrap = (gutter) => (
     <Styled>
@@ -50,10 +51,10 @@ let TodoList = ({
       <Todo
         key={todo.id}
         completed={todo.completed}
-        onClick={() => toggle(token, todo.id)}
-      >
-        {todo.title}
-      </Todo>
+        text={todo.title}
+        onTextClick={() => toggle(token, todo.id)}
+        onDeleteClick={() => destroy(token, todo.id)}
+      />
     )
   )
 }
@@ -65,7 +66,8 @@ TodoList.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string,
   fetch: PropTypes.func.isRequired,
-  toggle: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired,
+  destroy: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -82,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetch: bindActionCreators(actions.fetchTodos, dispatch),
-  toggle: bindActionCreators(actions.toggleTodo, dispatch)
+  toggle: bindActionCreators(actions.toggleTodo, dispatch),
+  destroy: bindActionCreators(actions.destroyTodo, dispatch)
 })
 
 TodoList = connect(

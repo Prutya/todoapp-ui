@@ -9,5 +9,5 @@ export const visibleTodos = createSelector(
   state => state.todos,
   scope => scope.todos.ids
     .map(id => scope.todos.byId[id])
-    .filter(todo => todo.todoGroupId === scope.groups.idCurrent)
+    .filter(todo => !!todo && todo.todoGroupId === scope.groups.idCurrent)
 )

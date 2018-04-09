@@ -48,6 +48,12 @@ const byId = (state = {}, action) => {
           completed
         }
       }
+    case 'TODOS_DESTROY_SUCCESS':
+      return {
+        ...state,
+        [action.id]: null
+      }
+
     default:
       return state
   }
@@ -55,8 +61,11 @@ const byId = (state = {}, action) => {
 
 const isFetching = (state = false, action) => {
   switch (action.type) {
+    case 'TODOS_DESTROY_REQUEST':
     case 'TODOS_FETCH_REQUEST':
       return true
+    case 'TODOS_DESTROY_SUCCESS':
+    case 'TODOS_DESTROY_ERROR':
     case 'TODOS_FETCH_SUCCESS':
     case 'TODOS_FETCH_ERROR':
       return false

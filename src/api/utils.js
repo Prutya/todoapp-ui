@@ -20,6 +20,10 @@ const patch = {
   method: 'PATCH'
 }
 
+const destroy = {
+  method: 'DELETE'
+}
+
 export const options = {
-  get, post, patch
+  get, post, patch, destroy
 }
