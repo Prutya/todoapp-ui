@@ -61,9 +61,12 @@ const byId = (state = {}, action) => {
 
 const isFetching = (state = false, action) => {
   switch (action.type) {
+    case 'TODOS_CREATE_REQUEST':
     case 'TODOS_DESTROY_REQUEST':
     case 'TODOS_FETCH_REQUEST':
       return true
+    case 'TODOS_CREATE_SUCCESS':
+    case 'TODOS_CREATE_ERROR':
     case 'TODOS_DESTROY_SUCCESS':
     case 'TODOS_DESTROY_ERROR':
     case 'TODOS_FETCH_SUCCESS':
