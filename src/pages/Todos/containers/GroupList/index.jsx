@@ -11,6 +11,8 @@ import Group from 'pages/Todos/components/Group'
 import SpinnerWrapper from 'pages/Todos/components/SpinnerWrapper'
 import { ErrorMessage, NoDataMessage } from 'pages/Todos/components/Message'
 
+import Button from 'components/Button'
+
 class GroupsList extends React.Component {
   componentDidMount () {
     const { fetch, token, history, match: { params } } = this.props
@@ -54,10 +56,20 @@ class GroupsList extends React.Component {
   }
 
   wrap (gutter) {
-    const { isFetching } = this.props
+    const { isFetching, showCreateModal } = this.props
 
     return (
       <Styled>
+        <div style={{ padding: '20px' }}>
+          <Button
+            style={{ width: '100%' }}
+            onClick={() => {
+              showCreateModal(true)
+            }}
+          >
+            Add
+          </Button>
+        </div>
         <SpinnerWrapper active={isFetching} paddingTop='120px' />
         {gutter}
       </Styled>
@@ -74,7 +86,8 @@ GroupsList.propTypes = {
   groupFilter: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   fetch: PropTypes.func.isRequired,
-  select: PropTypes.func.isRequired
+  select: PropTypes.func.isRequired,
+  showCreateModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -88,7 +101,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetch: bindActionCreators(actions.fetchGroups, dispatch),
-  select: bindActionCreators(actions.selectGroup, dispatch)
+  select: bindActionCreators(actions.selectGroup, dispatch),
+  showCreateModal: bindActionCreators(actions.showTodoGroupModal, dispatch)
 })
 
 // NOTE: using connect here, so

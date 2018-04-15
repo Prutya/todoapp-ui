@@ -9,6 +9,11 @@ const ids = (state = [], action) => {
           ...action.response.result
         ])
       ]
+    case 'GROUPS_CREATE_SUCCESS':
+      return [
+        action.response.result,
+        ...state
+      ]
     default:
       return state
   }
@@ -17,6 +22,11 @@ const ids = (state = [], action) => {
 const byId = (state = {}, action) => {
   switch (action.type) {
     case 'GROUPS_FETCH_SUCCESS':
+      return {
+        ...state,
+        ...action.response.entities.todoGroups
+      }
+    case 'GROUPS_CREATE_SUCCESS':
       return {
         ...state,
         ...action.response.entities.todoGroups
@@ -32,6 +42,17 @@ const isFetching = (state = true, action) => {
       return true
     case 'GROUPS_FETCH_SUCCESS':
     case 'GROUPS_FETCH_ERROR':
+      return false
+    default:
+      return state
+  }
+}
+
+const isShowingCreateModal = (state = false, action) => {
+  switch (action.type) {
+    case 'GROUPS_SHOW_CREATE_MODAL':
+      return true
+    case 'GROUPS_HIDE_CREATE_MODAL':
       return false
     default:
       return state
@@ -63,6 +84,7 @@ const groups = combineReducers({
   ids,
   byId,
   isFetching,
+  isShowingCreateModal,
   idCurrent,
   errorMessage
 })

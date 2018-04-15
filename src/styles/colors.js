@@ -9,6 +9,7 @@ const sub2 = 'rgb(255, 255, 255)'
 const sub2Trans = transparentize(0.3, sub2)
 const text = 'rgb(87, 99, 102)'
 const textAlt = 'rgb(255, 255, 255)'
+const backdrop = 'rgba(0, 0, 0, 0.3)'
 
 export const colors = {
   main,
@@ -19,5 +20,6 @@ export const colors = {
   sub2,
   sub2Trans,
   text,
-  textAlt
+  textAlt,
+  backdrop
 }

@@ -4,7 +4,6 @@ const Styled = styled.ul`
   float: left;
   height: 100%;
   overflow-y: scroll;
-  padding-top: 58px;
   position: relative;
   width: 20%;
 `

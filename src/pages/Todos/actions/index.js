@@ -47,6 +47,39 @@ export const selectGroup = (token, id, history) => (dispatch) => {
   fetchTodos(token, id)(dispatch)
 }
 
+export const showTodoGroupModal = (isShowing) => (dispatch) => {
+  dispatch({
+    type: isShowing ? 'GROUPS_SHOW_CREATE_MODAL' : 'GROUPS_HIDE_CREATE_MODAL'
+  })
+}
+
+export const createTodoGroup = (token, title) => (dispatch) => {
+  dispatch({
+    type: 'GROUPS_CREATE_REQUEST',
+    title
+  })
+
+  api.createGroup(token, title).then(
+    response => {
+      const normalizedResponse = normalize(response.todoGroup, schema.group)
+
+      dispatch({
+        type: 'GROUPS_CREATE_SUCCESS',
+        response: normalizedResponse
+      })
+
+      showTodoGroupModal(false)(dispatch)
+    },
+
+    error => {
+      dispatch({
+        type: 'GROUPS_CREATE_ERROR',
+        message: error.message
+      })
+    }
+  )
+}
+
 export const fetchTodos = (token, groupId) => (dispatch) => {
   dispatch({
     type: 'TODOS_FETCH_REQUEST',

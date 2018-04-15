@@ -17,6 +17,20 @@ export const fetchGroups = (token) => (
     .then(response => response.json())
 )
 
+export const createGroup = (token, title) => {
+  const reqOptions = {
+    ...options.post,
+    body: JSON.stringify({
+      todoGroup: {
+        title
+      }
+    })
+  }
+
+  return fetch(groupsEndpoint, insertAuthHeader(reqOptions, token))
+    .then(response => response.json())
+}
+
 export const fetchTodos = (token, groupId) => (
   fetch(`${groupsEndpoint}/${groupId}/todos`, insertAuthHeader(options.get, token))
     .then(response => response.json())
