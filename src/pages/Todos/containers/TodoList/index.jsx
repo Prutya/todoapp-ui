@@ -2,13 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { List } from 'antd'
 
 import * as actions from 'pages/Todos/actions'
 import * as selectors from 'pages/Todos/selectors'
-import Styled from './Styled'
-import Todo from 'pages/Todos/components/Todo'
-import SpinnerWrapper from 'pages/Todos/components/SpinnerWrapper'
-import { ErrorMessage, NoDataMessage } from 'pages/Todos/components/Message'
 
 let TodoList = ({
   token,
@@ -19,45 +16,21 @@ let TodoList = ({
   fetch,
   toggle,
   destroy
-}) => {
-  const wrap = (gutter) => (
-    <Styled>
-      <SpinnerWrapper active={isFetching} paddingTop='120px' />
-      {gutter}
-    </Styled>
-  )
-
-  if (isFetching) {
-    return wrap(null)
-  }
-
-  if (errorMessage) {
-    return wrap(
-      <ErrorMessage
-        onBtnClick={() => fetch(token, currentGroupId)}
-        text={errorMessage}
-      />
-    )
-  }
-
-  if (!todos.length) {
-    return wrap(
-      <NoDataMessage />
-    )
-  }
-
-  return wrap(
-    todos.map(todo =>
-      <Todo
-        key={todo.id}
-        completed={todo.completed}
-        text={todo.title}
-        onTextClick={() => toggle(token, todo.id)}
-        onDeleteClick={() => destroy(token, todo.id)}
-      />
-    )
-  )
-}
+}) => (
+  <List
+    bordered
+    loading={isFetching}
+    dataSource={todos}
+    renderItem={item =>
+      <List.Item
+        style={{ textDecoration: item.completed ? 'line-through' : 'none' }}
+        onClick={() => toggle(token, item.id)}
+      >
+        { item.title }
+      </List.Item>
+    }
+  />
+)
 
 TodoList.propTypes = {
   token: PropTypes.string,
