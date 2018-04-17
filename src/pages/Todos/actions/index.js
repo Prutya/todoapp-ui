@@ -3,7 +3,7 @@ import * as api from 'api'
 import * as schema from './schema'
 
 export const fetchGroups = (token, history, groupFilter) => (dispatch) => {
-  const groupFilterInt = parseInt(groupFilter)
+  const groupFilterInt = parseInt(groupFilter, null)
 
   dispatch({
     type: 'GROUPS_FETCH_REQUEST'
@@ -13,7 +13,7 @@ export const fetchGroups = (token, history, groupFilter) => (dispatch) => {
     response => {
       const normalizedResponse = normalize(response.todoGroups, schema.groups)
       const lastGroupId = normalizedResponse.result[0]
-      const groupPresent = normalizedResponse.entities.todoGroups[groupFilterInt]
+      const groupPresent = normalizedResponse.entities.todoGroups && normalizedResponse.entities.todoGroups[groupFilterInt]
 
       dispatch({
         type: 'GROUPS_FETCH_SUCCESS',
