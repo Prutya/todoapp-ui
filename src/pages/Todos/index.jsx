@@ -1,21 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
 
+import Styled from './styled'
 import GroupListContainer from './containers/GroupList'
+import TodoFormContainer from './containers/TodoForm'
+import TodoGroupFormContainer from 'pages/Todos/containers/TodoGroupForm'
 import TodoListContainer from './containers/TodoList'
 
 const Todos = ({ match: { params } }) => (
-  <Layout style={{ height: '100%' }}>
-    <Layout.Sider style={{ height: '100%', overflowY: 'scroll' }}>
-      <GroupListContainer groupFilter={params.groupId} />
-    </Layout.Sider>
-    <Layout.Content style={{ padding: '20px' }}>
-      <div style={{ padding: '20px', backgroundColor: 'white' }}>
-        <TodoListContainer />
-      </div>
-    </Layout.Content>
-  </Layout>
+  <Styled>
+    <TodoGroupFormContainer />
+    <GroupListContainer groupFilter={params.groupId} />
+    <TodoFormContainer />
+    <TodoListContainer />
+  </Styled>
 )
 
 Todos.propTypes = {

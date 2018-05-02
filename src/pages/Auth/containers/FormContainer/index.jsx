@@ -2,96 +2,82 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Button, Form, Input } from 'antd'
+import { get as _get } from 'lodash'
 
 import { signIn } from 'pages/Auth/actions'
+import Form from 'components/Form'
+import FormGroup from 'components/FormGroup'
+import FormLabel from 'components/FormLabel'
+import Button from 'components/Button'
+import Input from 'components/Input'
 
 class FormContainer extends React.Component {
-  handleSubmit (e) {
-    const { signIn, history, redirectPath, form } = this.props
+  constructor (...args) {
+    super(...args)
 
-    e.preventDefault()
-    form.validateFields((error, values) => {
-      const { username, password } = values
+    this.state = {
+      username: '',
+      password: ''
+    }
 
-      if (!error) {
-        signIn(history, username, password, redirectPath)
-      }
-    })
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   render () {
-    const { getFieldDecorator } = this.props.form
-
     return (
-      <Form
-        onSubmit={(e) => this.handleSubmit(e)}
-        style={{
-          width: '300px',
-          backgroundColor: 'white',
-          padding: '20px',
-          alignSelf: 'flex-start',
-          marginTop: '120px',
-          borderRadius: '4px'
-        }}
-      >
-        <Form.Item>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please enter your username!' }]
-          })(
-            <Input
-              autoComplete='username'
-              placeholder='Username'
-            />
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please enter you password!' }]
-          })(
-            <Input
-              type='password'
-              autoComplete='current-password'
-              placeholder='Password'
-            />
-          )}
-        </Form.Item>
-        <Form.Item style={{ marginBottom: '0' }}>
-          <Button
-            type='primary'
-            htmlType='submit'
+      <Form onSubmit={(e) => this.handleSubmit(e)}>
+        <FormGroup style={{ width: '50%' }} >
+          <FormLabel>Username</FormLabel>
+          <Input
+            autoComplete='username'
+            onChange={(e) => { this.setState({ username: e.target.value }) }}
             style={{ width: '100%' }}
-          >
-            Sign in
-          </Button>
-        </Form.Item>
+          />
+        </FormGroup>
+        <FormGroup style={{ width: '50%' }} >
+          <FormLabel>Password</FormLabel>
+          <Input
+            type='password'
+            autoComplete='current-password'
+            onChange={(e) => { this.setState({ password: e.target.value }) }}
+            style={{ width: '100%' }}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Button>Sign in</Button>
+        </FormGroup>
       </Form>
     )
+  }
+
+  handleSubmit (e) {
+    const { signIn, history, redirectPath } = this.props
+    const { username, password } = this.state
+
+    e.preventDefault()
+    signIn(history, username, password, redirectPath)
   }
 }
 
 FormContainer.propTypes = {
   signIn: PropTypes.func.isRequired,
-  form: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   redirectPath: PropTypes.string
 }
 
+// NOTE: using connect here, so
 // eslint-disable-next-line no-class-assign
 FormContainer = connect(
   (_, ownProps) => ({
-    form: ownProps.form,
     history: ownProps.history,
-    // TODO: wtf ? :(
-    redirectPath: (((ownProps.location || {}).state || {}).from || {}).pathname
+    // TODO: ???
+    redirectPath: _get(ownProps, 'location.state.from.pathname')
   }),
   { signIn }
 )(FormContainer)
 
+// NOTE: using withRouter here, so
 // eslint-disable-next-line no-class-assign
 FormContainer = withRouter(FormContainer)
-
-// eslint-disable-next-line no-class-assign
-FormContainer = Form.create()(FormContainer)
 
 export default FormContainer

@@ -3,10 +3,15 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Menu, Spin } from 'antd'
 
 import * as actions from 'pages/Todos/actions'
 import * as selectors from 'pages/Todos/selectors'
+import Styled from './Styled'
+import Group from 'pages/Todos/components/Group'
+import SpinnerWrapper from 'pages/Todos/components/SpinnerWrapper'
+import { ErrorMessage, NoDataMessage } from 'pages/Todos/components/Message'
+
+import Button from 'components/Button'
 
 class GroupsList extends React.Component {
   componentDidMount () {
@@ -15,60 +20,59 @@ class GroupsList extends React.Component {
     fetch(token, history, params.groupId)
   }
 
-  handleItemClick (e) {
-    const { fetch, token, history, select } = this.props
-    const { key } = e
-
-    if (!key) {
-      return
-    }
-
-    if (key === 'error-message') {
-      return fetch(token, history)
-    }
-
-    select(token, parseInt(key), history)
-  }
-
   render () {
-    const {
-      groups,
-      groupFilter,
-      isFetching,
-      errorMessage
-    } = this.props
-
-    const wrap = (gutter) => (
-      <Menu
-        onClick={(e) => { this.handleItemClick(e) }}
-        selectedKeys={[groupFilter]}
-      >
-        {gutter}
-      </Menu>
-    )
+    const { token, history, groups, groupFilter, isFetching, errorMessage, fetch, select } = this.props
 
     if (isFetching) {
-      return wrap(
-        <Menu.Item>
-          <Spin size='large' />
-        </Menu.Item>
-      )
+      return this.wrap(null)
     }
 
     if (errorMessage) {
-      return wrap(
-        <Menu.Item key='error-message'>
-          {errorMessage}
-        </Menu.Item>
+      return this.wrap(
+        <ErrorMessage
+          onBtnClick={() => fetch(token, history)}
+          text={errorMessage}
+        />
       )
     }
 
-    return wrap(
-      groups.map(group =>
-        <Menu.Item key={group.id.toString()}>
-          {group.title}
-        </Menu.Item>
+    if (!groups.length) {
+      return this.wrap(
+        <NoDataMessage />
       )
+    }
+
+    return this.wrap(
+      groups.map(group =>
+        <Group
+          key={group.id}
+          active={group.id === parseInt(groupFilter)}
+          onClick={() => select(token, group.id, history)}
+        >
+          {group.title}
+        </Group>
+      )
+    )
+  }
+
+  wrap (gutter) {
+    const { isFetching, showCreateModal } = this.props
+
+    return (
+      <Styled>
+        <div style={{ padding: '20px' }}>
+          <Button
+            style={{ width: '100%' }}
+            onClick={() => {
+              showCreateModal(true)
+            }}
+          >
+            Add
+          </Button>
+        </div>
+        <SpinnerWrapper active={isFetching} paddingTop='120px' />
+        {gutter}
+      </Styled>
     )
   }
 }
@@ -82,7 +86,8 @@ GroupsList.propTypes = {
   groupFilter: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   fetch: PropTypes.func.isRequired,
-  select: PropTypes.func.isRequired
+  select: PropTypes.func.isRequired,
+  showCreateModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
