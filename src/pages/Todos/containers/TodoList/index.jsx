@@ -52,7 +52,7 @@ let TodoList = ({
         key={todo.id}
         completed={todo.completed}
         text={todo.title}
-        onTextClick={() => toggle(token, todo.id)}
+        onTextClick={() => toggle(token, todo)}
         onDeleteClick={() => destroy(token, todo.id)}
       />
     )

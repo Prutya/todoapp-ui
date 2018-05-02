@@ -20,11 +20,7 @@ export const fetchGroups = (token) => (
 export const createGroup = (token, title) => {
   const reqOptions = {
     ...options.post,
-    body: JSON.stringify({
-      todoGroup: {
-        title
-      }
-    })
+    body: JSON.stringify({ todoGroup: { title } })
   }
 
   return fetch(groupsEndpoint, insertAuthHeader(reqOptions, token))
@@ -39,21 +35,24 @@ export const fetchTodos = (token, groupId) => (
 export const createTodo = (token, groupId, title) => {
   const reqOptions = {
     ...options.post,
-    body: JSON.stringify({
-      todo: {
-        title
-      }
-    })
+    body: JSON.stringify({ todo: { title } })
   }
 
   return fetch(`${groupsEndpoint}/${groupId}/todos`, insertAuthHeader(reqOptions, token))
     .then(response => response.json())
 }
 
-export const toggleTodo = (token, id) => (
-  fetch(`${todosEndpoint}/${id}`, insertAuthHeader(options.patch, token))
+export const toggleTodo = (token, todo) => {
+  const { id, completed } = todo
+
+  const reqOptions = {
+    ...options.patch,
+    body: JSON.stringify({ todo: { completed: !completed } })
+  }
+
+  return fetch(`${todosEndpoint}/${id}`, insertAuthHeader(reqOptions, token))
     .then(response => response.json())
-)
+}
 
 export const destroyTodo = (token, id) => (
   fetch(`${todosEndpoint}/${id}`, insertAuthHeader(options.destroy, token))
@@ -62,9 +61,7 @@ export const destroyTodo = (token, id) => (
 export const signIn = (login, password) => {
   const reqOptions = {
     ...options.post,
-    body: JSON.stringify({
-      auth: { login, password }
-    })
+    body: JSON.stringify({ auth: { login, password } })
   }
 
   return fetch(authEndpoint, reqOptions)
