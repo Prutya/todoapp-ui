@@ -5,18 +5,16 @@ import { Layout } from 'antd'
 import GroupListContainer from './containers/GroupList'
 import TodoListContainer from './containers/TodoList'
 
-const { Sider, Content } = Layout
-
 const Todos = ({ match: { params } }) => (
   <Layout style={{ height: '100%' }}>
-    <Sider style={{ height: '100%', overflowY: 'scroll', backgroundColor: 'white' }}>
+    <Layout.Sider style={{ height: '100%', overflowY: 'scroll' }}>
       <GroupListContainer groupFilter={params.groupId} />
-    </Sider>
-    <Content style={{ padding: '20px' }}>
+    </Layout.Sider>
+    <Layout.Content style={{ padding: '20px' }}>
       <div style={{ padding: '20px', backgroundColor: 'white' }}>
         <TodoListContainer />
       </div>
-    </Content>
+    </Layout.Content>
   </Layout>
 )
 

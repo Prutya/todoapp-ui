@@ -19,12 +19,10 @@ class GroupsList extends React.Component {
     const { fetch, token, history, select } = this.props
     const { key } = e
 
-    // TODO: ??? :)
-    if (key === 'spinner') {
+    if (!key) {
       return
     }
 
-    // TODO: ??? :)
     if (key === 'error-message') {
       return fetch(token, history)
     }
@@ -44,7 +42,6 @@ class GroupsList extends React.Component {
       <Menu
         onClick={(e) => { this.handleItemClick(e) }}
         selectedKeys={[groupFilter]}
-        mode='inline'
       >
         {gutter}
       </Menu>
@@ -52,8 +49,8 @@ class GroupsList extends React.Component {
 
     if (isFetching) {
       return wrap(
-        <Menu.Item key='spinner' style={{ padding: '20px' }}>
-          <Spin />
+        <Menu.Item>
+          <Spin size='large' />
         </Menu.Item>
       )
     }
