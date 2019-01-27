@@ -8,3 +8,19 @@ Demo is [deployed to Heroku](https://todoapp-ui.herokuapp.com)
 <img width="100%" alt="todoapp" src="https://user-images.githubusercontent.com/8135164/39544101-b892d290-4e55-11e8-94ef-9d5b482b22be.png">
 
 REST backend can be found [here (Node)](https://github.com/xSaber/todoapp-api) or [here (Rails)](https://github.com/Prutya/todoapp-api).
+
+## Run
+1. Install packages
+```sh
+npm install
+```
+
+2. Copy .env
+```sh
+cp .env.example .env
+```
+
+3. Run the app
+```sh
+npm start
+```

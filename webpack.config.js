@@ -1,8 +1,12 @@
 const path = require('path')
+
+const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
-const config = {
+const nodeEnv = process.env.NODE_ENV
+
+let config = {
   output: {
     filename: 'assets/[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
@@ -43,12 +47,21 @@ const config = {
   ]
 }
 
-if (!(process.env.NODE_ENV === 'production')) {
-  config.devtool = 'eval-source-map'
-  config.devServer = {
-    port: 4000,
-    historyApiFallback: true
-  }
+if (nodeEnv === 'development') {
+  config = merge(config, {
+    mode: 'development',
+    devtool: 'eval-source-map',
+    devServer: {
+      port: 4000,
+      historyApiFallback: true
+    }
+  })
+}
+
+if (nodeEnv === 'production') {
+  config = merge(config, {
+    mode: 'production'
+  })
 }
 
 module.exports = config

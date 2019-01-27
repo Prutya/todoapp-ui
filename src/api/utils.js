@@ -1,4 +1,4 @@
-export const host = process.env.REACT_APP_HOST_API
+export const host = process.env.API_BASE_URL
 
 const get = {
   method: 'GET',
